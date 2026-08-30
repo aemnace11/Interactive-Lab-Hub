@@ -2,10 +2,11 @@
 
 _This project is to be done in teams of 2._
 
-**Achilles Emnace** 
+## Achilles Emnace 
 Unfortunately, I was in the hospital and unable to attend class on Wednesday, so I decided to undertake this lab alone as I was unable to find a partner until it was too late. 
 
-**THE MASTERWORK YOU DREW FROM THE HAT: E.T. Flying Bicycle Moon Scene**
+## THE MASTERWORK YOU DREW FROM THE HAT: E.T. Flying Bicycle Moon Scene
+
 Because I was not in class I was unable to pull from the hat, so this was the masterwork I came up with when I first thought about beautiful interactions with light. 
 ---
 
