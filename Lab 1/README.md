@@ -3,11 +3,9 @@
 _This project is to be done in teams of 2._
 
 ## Achilles Emnace 
-Unfortunately, I was in the hospital and unable to attend class on Wednesday, so I decided to undertake this lab alone as I was unable to find a partner until it was too late. 
+Unfortunately, I was in the hospital and unable to attend class on Wednesday and I was unable to look for a partner until it was too late, so I decided that I would not be able to complete this lab. 
 
-## THE MASTERWORK YOU DREW FROM THE HAT: E.T. Flying Bicycle Moon Scene
-
-Because I was not in class I was unable to pull from the hat, so this was the masterwork I came up with when I first thought about beautiful interactions with light. 
+## THE MASTERWORK YOU DREW FROM THE HAT: N/A
 ---
 
 One way to understand greatness is to look to the greats. Just as painters learn
