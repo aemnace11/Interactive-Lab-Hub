@@ -1,5 +1,5 @@
 # Interactive Prototyping: The Clock of Pi
-**NAMES OF COLLABORATORS HERE**
+**Achilles Emnace and Abiola Bolaji**
 
 Does it feel like time is moving strangely during this semester?
 
