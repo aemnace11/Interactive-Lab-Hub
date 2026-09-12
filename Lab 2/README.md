@@ -1,5 +1,5 @@
 # Interactive Prototyping: The Clock of Pi
-**Achilles Emnace and Abiola Bolaji**
+**Achilles Emnace**
 
 Does it feel like time is moving strangely during this semester?
 
@@ -8,7 +8,7 @@ For our first Pi project, we will pay homage to the [timekeeping devices of old]
 It is worth spending a little time thinking about how you mark time, and what would be useful in a clock of your own design.
 
 **Please indicate anyone you collaborated with on this Lab here.**
-Be generous in acknowledging their contributions! And also recognizing any other influences (e.g. from YouTube, Github, Twitter) that informed your design. 
+I did not collaborate with him fully on this, but Abiola Bolaji and I were helping each other work through any confusion or issues we were having during the lab period! 
 
 ## Prep
 
@@ -157,6 +157,8 @@ You can look in `screen_boot_script.py` for how to display text on the screen!
 You can look in `image.py` for an example of how to display an image on the screen. Can you make it switch to another image when you push one of the buttons?
 
 \*\*\***Include a picture of your own Raspberry Pi displaying the piscreen.service with your unique MAC address. Additionally, please provide another picture showing the successful completion of the screen test.**\*\*\*
+<img width="3024" height="4032" alt="screen_test" src="https://github.com/user-attachments/assets/991987c7-1a5c-45c0-be78-c858e42d7ee9" />
+<img width="3024" height="4032" alt="start_screen" src="https://github.com/user-attachments/assets/f123c7a8-7dc4-490c-8f0c-d775a916a140" />
 
 
 ## Part D. 
