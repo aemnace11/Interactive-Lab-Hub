@@ -81,7 +81,7 @@ def time_to_rgb(t=None, keyframes=COLOR_KEYFRAMES):
     return keyframes[-1][1]
 
 while True:
-    bg_color = time_to_rgb(t=time.mktime(time.strptime("20:00:00", "%H:%M:%S")))
+    bg_color = time_to_rgb()
     draw.rectangle((0, 0, width, height), outline=0, fill=bg_color)
 
     # Display image.
