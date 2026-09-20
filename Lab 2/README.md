@@ -198,8 +198,8 @@ We strongly discourage literal digital or analog clock display: Be creative.
 <img width="3019" height="1926" alt="clock_ideas" src="https://github.com/user-attachments/assets/789c7fe6-207c-417a-8760-278d6bff883b" />
 
 
-
 **Put the names of the people you gave feedback to here. (Even better, add links to their repos here!)**
+Yujing Zhou and I exchanged feedback for our own PiClock ideas. 
 
 # Lab 2 Part 2
 
@@ -219,10 +219,13 @@ We strongly discourage literal digital or analog clock display: Be creative.
 Start small, pick just one element of your overall idea, just to show you have a handle on the code and components.
 
 \*\*\***Put a copy of your code in your Lab 2 Github repo.**\*\*\*
+Code for barely modified PiClock is in screen_clock.py. 
 
 ## Make a short video of your modified barebones PiClock
 
 \*\*\***Take a video of your barely modified PiClock.**\*\*\*
+https://github.com/user-attachments/assets/97d51327-3e52-4af2-a6ca-bda16b7356d8
+
 
 After you edit and work on the scripts for Lab 2, the files should be upload back to your own GitHub repo! You can push to your personal github repo by adding the files here, commiting and pushing.
 
@@ -239,11 +242,15 @@ After that, Git will ask you to login to your GitHub account to push the updates
 Do take advantage of having done the previous iteration to refine and simplify your design.
 
 ** Insert any updates ideas, sketches, [Verplank diagrams](https://ccrma.stanford.edu/courses/250a-fall-2004/IDSketchbok.pdf))!, storyboards for your ideas **
-
+The idea I chose was the Melanopic clock from my sketches in Part 1. Basically it's a screen that shows time as a blend of color instead of numbers: so black at midnight, deep blue → gold at sunrise, white at noon, orange → red at sunset, back to black. The name comes from melanopsin, a photoreceptor in your eye that doesn't drive normal vision but direcly affects your brain's circadian clock. It's super sensitive to blue light (like morning/midday sky), which kills melatonin and keeps you alert, while warm sunset light barely triggers it, so melatonin can build up and you start winding down. The idea is that if you just have this in the background all day, it acts like a mini environmental cue that syncs your body up with actual daylight instead of the flat, same-all-day light every screen normally gives off — hopefully makes you feel more awake when you should and sleepier when you should, without having to think about it.
 
 \*\*\***Put a copy of your code in your Lab 2 Github repo.**\*\*\*
+Code for my own PiClock is in emnace_piclock.py 
 
 \*\*\***Take a video of your PiClock.**\*\*\*
+https://github.com/user-attachments/assets/86864acf-6a73-4ed2-a5d1-b91e2c7c79aa
+
+
 
 
 As always, make sure you document contributions and ideas from others (and AI) explicitly in your writeup.
