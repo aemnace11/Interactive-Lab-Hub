@@ -107,9 +107,10 @@ Note that the Piper command line changed in version 1.x — voices are now downl
 The demo script also shows `--output-raw`, which streams audio to the speaker as it is generated rather than writing a file first. Listen for the difference in how quickly speech begins. In a conversational system this gap is the thing your user experiences as responsiveness.
 
 \*\***Write your own shell file to use your favorite of these TTS engines to have your Pi greet you by name.**\*\*
-(This shell file should be saved to your own repo for this lab.)
+This filename is greeting_demo.sh.
 
 \*\***Then answer: Is the same greeting, in these different voices, the same greeting? Describe one concrete way the voice changed what the utterance seemed to mean or who seemed to be speaking.**\*\*
+The greeting is not the same in different voices. In my file, I have a monotone American male greeting vs a bright British female greeting, and the way that I receive the two are completely different even though it is the same sentence. I feel much more welcomed by the tone and utterance of the female greeting, while the American male makes me feel as if he is greeting me indifferently. 
 
 ## B. Speech to Text
 
