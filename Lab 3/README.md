@@ -110,7 +110,7 @@ The demo script also shows `--output-raw`, which streams audio to the speaker as
 This filename is greeting_demo.sh.
 
 \*\***Then answer: Is the same greeting, in these different voices, the same greeting? Describe one concrete way the voice changed what the utterance seemed to mean or who seemed to be speaking.**\*\*
-The greeting is not the same in different voices. In my file, I have a monotone American male greeting vs a bright British female greeting, and the way that I receive the two are completely different even though it is the same sentence. I feel much more welcomed by the tone and utterance of the female greeting, while the American male makes me feel as if he is greeting me indifferently. 
+The greeting is not the same in different voices. In my file, I have a monotone American male (en_US-joe-medium) greeting vs a bright British female (en_GB-semaine-medium) greeting, and the way that I receive the two are completely different even though it is the same sentence. I feel much more welcomed by the tone and utterance of the female greeting, while the American male makes me feel as if he is greeting me indifferently. 
 
 ## B. Speech to Text
 
