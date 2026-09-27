@@ -168,6 +168,8 @@ Speak, pause, and watch it transcribe. Now change the endpointing threshold — 
 
 \*\***Try both extremes, and something in between. Describe what each one feels like to talk to. Note specifically: at 0.2s, what kinds of normal speech get cut off? At 1.5s, what does the delay make the system seem like?**\*\*
 
+At 0.2s, if you take any pause to think of a word, or saying a sentence with small break(s) between such as a phone number or list of things, then your speech will get cut off. If feels as if you are talking to someone who interrupts you whenever you pause when talking. At 1.5s however, the pause is too long and it feels like you are talking to a robot or someone who's on the end of a bad phone connection line. I felt like I could feel the compute and comprehend time for the listener to process what I had said. Trying 0.8s which was in the middle of the 2 extremes seemed to fit the best for a normal conversation flow and not cut me off too harshly. 
+
 There is no correct value. A system that takes drink orders and a system that listens to someone think out loud want very different thresholds, and the right one depends on what your users are doing with their pauses.
 
 ### The complete loop
