@@ -1,6 +1,6 @@
 # Chatterboxes
 
-**NAMES OF COLLABORATORS HERE**
+Achilles Emnace 
 
 [![Watch the video](https://user-images.githubusercontent.com/1128669/135009222-111fe522-e6ba-46ad-b6dc-d1633d21129c.png)](https://www.youtube.com/embed/Q8FWzLMobx0?start=19)
 
@@ -107,9 +107,10 @@ Note that the Piper command line changed in version 1.x — voices are now downl
 The demo script also shows `--output-raw`, which streams audio to the speaker as it is generated rather than writing a file first. Listen for the difference in how quickly speech begins. In a conversational system this gap is the thing your user experiences as responsiveness.
 
 \*\***Write your own shell file to use your favorite of these TTS engines to have your Pi greet you by name.**\*\*
-(This shell file should be saved to your own repo for this lab.)
+This filename is greeting_demo.sh.
 
 \*\***Then answer: Is the same greeting, in these different voices, the same greeting? Describe one concrete way the voice changed what the utterance seemed to mean or who seemed to be speaking.**\*\*
+The greeting is not the same in different voices. In my file, I have a monotone American male (en_US-joe-medium) greeting vs a bright British female (en_GB-semaine-medium) greeting, and the way that I receive the two are completely different even though it is the same sentence. I feel much more welcomed by the tone and utterance of the female greeting, while the American male makes me feel as if he is greeting me indifferently. 
 
 ## B. Speech to Text
 
@@ -131,7 +132,21 @@ Available sizes, smallest first: `tiny.en`, `base.en`, `small.en`, `medium.en`. 
 
 \*\***Record a few seconds of your own speech (`arecord -d 5 -f cd -c 1 -r 16000 test.wav`) and transcribe it with at least two model sizes. Report the real-time factor for each. At what point does the accuracy improvement stop being worth the delay, for a system that has to answer you?**\*\*
 
+Sentence I said: "Who is the best soccer player ever, Messi or Ronaldo?"
+
+tiny.en: 0.22x, transcription: "Who is the best soccer player ever, Messi or Ronaldo?" 
+
+base.en: 0.45x, transcription: "Who is the best soccer player ever? Messi Orinaldo?"
+
+small.en: 1.21x, transcription: "Who is the best soccer player ever, Messi or Ronaldo?"
+
+medium.en: 3.28x, transcription: "Who is the best soccer player ever, Messi or Ronaldo?"
+
+Accuracy can't be judged here, because a single sentence where tiny.en was already perfect and base.en did worse than tiny.en is too inconsistent to show any trend. On latency, though, the cutoff is clear: small.en and medium.en run slower than real time (real-time factor > 1), so for a system that has to answer you, extra accuracy stops being worth it past base.en, and tiny.en is the practical pick.
+
 \*\***Write your own script that verbally asks for a numerical input (a phone number, zipcode, number of pets) and records the answer the respondent provides.**\*\* Numbers are a good stress test — transcription systems make characteristic errors on digit strings, and you will want to know what they are before you design around them.
+
+This code is in ask_zipcode.py.
 
 ## C. Turn-taking: knowing when someone has stopped talking
 
@@ -153,6 +168,8 @@ Speak, pause, and watch it transcribe. Now change the endpointing threshold — 
 
 \*\***Try both extremes, and something in between. Describe what each one feels like to talk to. Note specifically: at 0.2s, what kinds of normal speech get cut off? At 1.5s, what does the delay make the system seem like?**\*\*
 
+At 0.2s, if you take any pause to think of a word, or saying a sentence with small break(s) between such as a phone number or list of things, then your speech will get cut off. If feels as if you are talking to someone who interrupts you whenever you pause when talking. At 1.5s however, the pause is too long and it feels like you are talking to a robot or someone who's on the end of a bad phone connection line. I felt like I could feel the compute and comprehend time for the listener to process what I had said. Trying 0.8s which was in the middle of the 2 extremes seemed to fit the best for a normal conversation flow and not cut me off too harshly. 
+
 There is no correct value. A system that takes drink orders and a system that listens to someone think out loud want very different thresholds, and the right one depends on what your users are doing with their pauses.
 
 ### The complete loop
@@ -168,12 +185,11 @@ There is no correct value. A system that takes drink orders and a system that li
 Storyboard and/or use a Verplank diagram to design a speech-enabled device. (Stuck? Make a device that talks for dogs. If that is too stupid, find an application that is better than that.)
 
 \*\***Post your storyboard and diagram here.**\*\*
-
-Write out what you imagine the dialogue to be. Use cards, post-its, or whatever method helps you develop alternatives or group responses.
-
 \*\***Please describe and document your process.**\*\*
 
-Your script should include the pauses. Where does your device wait, and for how long? You now know from Part C that this is a parameter you have to choose, not something that happens for free.
+<img width="1206" height="497" alt="corporate_translator" src="https://github.com/user-attachments/assets/368721c0-581f-4f0c-a6bc-1b206edcc8b3" />
+Script included in this storyboard diagram of an example interaction.
+
 
 ## E. Acting out the dialogue
 
@@ -181,6 +197,9 @@ Find a partner, and *without sharing the script with your partner* try out the d
 
 \*\***Describe if the dialogue seemed different than what you imagined when it was acted out, and how.**\*\*
 
+https://github.com/user-attachments/assets/2ffc9c35-733b-40de-a3df-c807988ec33c
+
+The dialogue went pretty much how I imagined, because the questions were framed in a way that there are only a few possible answer choices. The device is forcing the user down 1 out of 3 interaction paths through the question format. However, when the test interaction was acted out, there was a moment when the user was a bit confused or delayed in processing the first instance of "Would you like to hear that again, try another, or are you done?", which may not have been caught by the listening duration that was established. This may cause me to extend the listening length in the final implementation. 
 
 ---
 
