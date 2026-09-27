@@ -199,7 +199,7 @@ Find a partner, and *without sharing the script with your partner* try out the d
 
 https://github.com/user-attachments/assets/2ffc9c35-733b-40de-a3df-c807988ec33c
 
-The dialogue went pretty much how I imagined, because the questions were framed in a way that there are only a few possible answer choices. The device is forcing the user down 1 out of 3 interaction paths through the question format. However, when the test interaction was acted out, there was a moment when the user was a bit confused or delayed in processing the first instance of "Would you like to hear that again, try another, or are you done?", which may not have been caught by the listening duration that was established. 
+The dialogue went pretty much how I imagined, because the questions were framed in a way that there are only a few possible answer choices. The device is forcing the user down 1 out of 3 interaction paths through the question format. However, when the test interaction was acted out, there was a moment when the user was a bit confused or delayed in processing the first instance of "Would you like to hear that again, try another, or are you done?", which may not have been caught by the listening duration that was established. This may cause me to extend the listening length in the final implementation. 
 
 ---
 
