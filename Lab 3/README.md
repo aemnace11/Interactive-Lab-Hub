@@ -185,12 +185,11 @@ There is no correct value. A system that takes drink orders and a system that li
 Storyboard and/or use a Verplank diagram to design a speech-enabled device. (Stuck? Make a device that talks for dogs. If that is too stupid, find an application that is better than that.)
 
 \*\***Post your storyboard and diagram here.**\*\*
-
-Write out what you imagine the dialogue to be. Use cards, post-its, or whatever method helps you develop alternatives or group responses.
-
 \*\***Please describe and document your process.**\*\*
 
-Your script should include the pauses. Where does your device wait, and for how long? You now know from Part C that this is a parameter you have to choose, not something that happens for free.
+<img width="1206" height="497" alt="corporate_translator" src="https://github.com/user-attachments/assets/368721c0-581f-4f0c-a6bc-1b206edcc8b3" />
+Script included in this storyboard diagram of an example interaction.
+
 
 ## E. Acting out the dialogue
 
