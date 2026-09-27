@@ -131,11 +131,15 @@ The transcript is not the interesting output here — the timings are. Run it ag
 Available sizes, smallest first: `tiny.en`, `base.en`, `small.en`, `medium.en`. The `.en` variants are English-only and faster than their multilingual counterparts at the same size.
 
 \*\***Record a few seconds of your own speech (`arecord -d 5 -f cd -c 1 -r 16000 test.wav`) and transcribe it with at least two model sizes. Report the real-time factor for each. At what point does the accuracy improvement stop being worth the delay, for a system that has to answer you?**\*\*
+
 Sentence I said: "Who is the best soccer player ever, Messi or Ronaldo?"
 
-tiny.en: 0.22x, transcription: "Who is the best soccer player ever, Messi or Ronaldo?"
+tiny.en: 0.22x, transcription: "Who is the best soccer player ever, Messi or Ronaldo?" 
+
 base.en: 0.45x, transcription: "Who is the best soccer player ever? Messi Orinaldo?"
+
 small.en: 1.21x, transcription: "Who is the best soccer player ever, Messi or Ronaldo?"
+
 medium.en: 3.28x, transcription: "Who is the best soccer player ever, Messi or Ronaldo?"
 
 Accuracy can't be judged here, because a single sentence where tiny.en was already perfect and base.en did worse than tiny.en is too inconsistent to show any trend. On latency, though, the cutoff is clear: small.en and medium.en run slower than real time (real-time factor > 1), so for a system that has to answer you, extra accuracy stops being worth it past base.en, and tiny.en is the practical pick.
