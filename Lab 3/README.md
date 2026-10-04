@@ -249,11 +249,6 @@ I am going to integrate a joystick or button as an input device to allow the use
 
 ## Prototype your system
 
-The system should:
-* use the Raspberry Pi
-* use one or more sensors
-* require participants to speak to it
-
 The Corporate Translator takes a plain English sentence and says it back in one of two personas: **Corporate** (sugar-coated business jargon) or **Yoda** (Yoda's backwards sentence structure). Everything runs locally on the Pi.
 
 **Hardware:** Raspberry Pi 5, USB mic, USB speaker, Adafruit Mini PiTFT, SparkFun Qwiic Button (green LED)
