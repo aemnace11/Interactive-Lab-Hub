@@ -250,7 +250,17 @@ The Corporate Translator takes a plain English sentence and says it back in one 
 python corporate_translator.py
 ```
 
-*Include videos or screencaptures of both the system and the controller.*
+Interaction Video: 
+
+
+https://github.com/user-attachments/assets/6d90e352-41f6-40d1-b1ee-4ccff86e23a0
+
+
+
+Controller Video: 
+
+https://github.com/user-attachments/assets/d6a95aaa-3581-44a8-a632-67360d52b635
+
 
 ## Test the system
 
