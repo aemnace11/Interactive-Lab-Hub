@@ -221,7 +221,34 @@ The system should:
 * use one or more sensors
 * require participants to speak to it
 
-*Document how the system works.*
+The Corporate Translator takes a plain English sentence and says it back in one of two personas: **Corporate** (sugar-coated business jargon) or **Yoda** (Yoda's backwards sentence structure). Everything runs locally on the Pi.
+
+**Hardware:** Raspberry Pi 5, USB mic, USB speaker, Adafruit Mini PiTFT, SparkFun Qwiic Button (green LED)
+
+**How it works:**
+1. The screen shows the current persona. Pressing the button switches personas at any time.
+2. The device asks "Please say what you would like to be translated." and the button's green LED turns on to show it's listening.
+3. After 1.2s of silence, the LED turns off and the screen shows "Transcribing..." then "Translating..."
+4. The device says the translation, then asks "Want to hear that again, try another, or are you done?"
+5. "Hear it again" replays the translation (in the new persona if you switched), "try another" starts over, and "done" ends the session. Anything else gets "Sorry I didn't understand that, please say it again."
+
+**Under the hood:**
+- Silero VAD detects when the user stops talking (same setup as `echo_bot.py`)
+- faster-whisper (`tiny.en`) transcribes speech
+- Ollama (`qwen2.5:1.5b`) translates using a short prompt and examples for each persona
+- Piper (`en_US-joe-medium`) speaks the response
+- The follow-up command matching also catches common mishearings (e.g. "try and other" → try another)
+
+**Changes from Part 1:**
+- Added the LED and on-screen status so users can tell when the device is listening vs. thinking
+- Extended the listening window to 10s, since a tester hesitated at the follow-up question in Part 1
+- Accepts variations of the commands ("repeat that", "next one", "that's all")
+- Originally planned to use a joystick to switch personas, but the board wasn't detected over I2C, so I switched to the button
+
+**Running it:**
+```
+python corporate_translator.py
+```
 
 *Include videos or screencaptures of both the system and the controller.*
 
