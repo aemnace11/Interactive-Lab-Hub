@@ -205,14 +205,47 @@ The dialogue went pretty much how I imagined, because the questions were framed 
 
 # Lab 3 Part 2
 
-For Part 2, you will redesign the interaction with the speech-enabled device using the data collected, as well as feedback from part 1.
-
 ## Prep for Part 2
 
-1. What are concrete things that could use improvement in the design of your device? For example: wording, timing, anticipation of misunderstandings.
-2. What are other modes of interaction *beyond speech* that you might also use to clarify how to interact? In particular: how does someone know when the device is listening, and when it is thinking? You have a screen and an LED.
-3. Make a new storyboard, diagram and/or script based on these reflections.
-4. (optional) Integrate [input devices](inputs.md) in the system
+**1. What are concrete things that could use improvement in the design of your device? For example: wording, timing, anticipation of misunderstandings.**
+
+- **Timing:** In Part 1, the tester hesitated at the first "hear it again, try another, or are you done?" question, and a fixed listening window could miss that. I'll give users up to 10 seconds to start talking, and end their turn after 1.2s of silence instead of recording for a set length. Part 1 showed 0.8s worked best for normal conversation. Translation needs full sentences, though, and people pause while figuring out what to say, so I'm going a little longer.
+- **Wording:** I'll keep the follow-up question listing exactly three options so users know what they can say. The device should also accept natural variations like "repeat that," "next one," "that's all," or "I'm not done."
+- **Misunderstandings:** If the device doesn't recognize a response, it will say "Sorry I didn't understand that, please say it again." and listen again, instead of repeating the whole question. It should also catch common transcription mistakes, like "here it again" or "try and other."
+- **Switching personas:** In Part 1, there was no way to change persona mid-session. Users should be able to switch at any time. If they switch and then say "hear it again," they'll hear the same sentence in the new persona.
+
+**2. What are other modes of interaction beyond speech that you might also use to clarify how to interact? In particular: how does someone know when the device is listening, and when it is thinking? You have a screen and an LED.**
+
+- **Listening:** The green LED turns on only while the device is listening, and turns off as soon as the user is done talking.
+- **Thinking:** The screen shows the current persona in large text, with a small status line underneath ("Listening...", "Transcribing...", "Translating...") so users know the device is working and not frozen.
+- **Persona:** A small hint at the top of the screen ("press button to switch") tells users how to change personas without the device having to explain it out loud.
+
+**3. Make a new storyboard, diagram and/or script based on these reflections.**
+
+*[Screen: white background, "Corporate" in the middle, "press button to switch" at the top]*
+
+- **Device:** "Please say what you would like to be translated." *[LED on, screen: "Listening..."]*
+- **User:** "I didn't read your email and I'm not going to."
+- *[1.2s of silence → LED off, screen: "Transcribing..." → "Translating..."]*
+- **Device:** "I haven't had the bandwidth to review your email yet, so I'll need to deprioritize it for now."
+- **Device:** "Want to hear that again, try another, or are you done?" *[LED on]*
+- **User:** "Um... what?"
+- **Device:** "Sorry I didn't understand that, please say it again." *[LED on]*
+- **User:** *[presses button, screen switches to "Yoda"]* "Hear it again."
+- **Device:** "Read your email, I did not. Going to, I am not."
+- **Device:** "Want to hear that again, try another, or are you done?"
+- **User:** "Try another."
+- **Device:** "Please say what you would like to be translated."
+- **User:** "I ate the whole pizza by myself and I regret nothing."
+- **Device:** "The whole pizza, eaten by myself I have. Regret nothing, I do. Hmm."
+- **Device:** "Want to hear that again, try another, or are you done?"
+- **User:** "I'm done."
+- **Device:** "Goodbye!" *[LED off, screen off]*
+
+**4. (optional) Integrate input devices in the system**
+
+I am going to integrate a joystick or button as an input device to allow the user to switch between personas.
+
 
 ## Prototype your system
 
