@@ -292,21 +292,41 @@ https://github.com/user-attachments/assets/d6a95aaa-3581-44a8-a632-67360d52b635
 
 ## Test the system
 
-Try to get at least two people to interact with your system. (Ideally, you would inform them that there is a wizard *after* the interaction, but we recognize that can be hard.)
-
-Answer the following:
+My system is fully autonomous, so I didn't need a wizard during testing. The interaction was designed to be predictable from the start, and an LLM running locally through Ollama could handle the translation, so there was nothing a human needed to fake. Two people tested the device without any instructions besides "talk to it."
 
 ### What worked well about the system and what didn't?
-\*\**your answer here*\*\*
+
+**Worked well:**
+- The LED and on-screen status made it clear when to talk and when to wait. Nobody tried to talk while the device was translating.
+- The 1.2s silence cutoff felt natural, and testers weren't cut off mid-sentence.
+- Switching personas with the button was easy, and hearing the same sentence in both personas got the best reactions.
+- The "Sorry I didn't understand that" recovery kept the conversation going instead of breaking it.
+
+**Didn't work well:**
+- There was a noticeable wait while the LLM generated the translation, which made the device feel slow at times.
+- Both personas use the same Piper voice, so Corporate and Yoda don't sound as different as they could.
+- Transcription and translation accuracy were the biggest problems (see below).
 
 ### What worked well about the controller and what didn't?
-\*\**your answer here*\*\*
+
+Since there was no wizard, my "controller" was the terminal running the script, which logged what the device heard, the persona, the translation, and which command it matched.
+
+**Worked well:** The log made it easy to see exactly where an interaction went wrong, whether it was the speech recognition, the translation, or the command matching.
+
+**Didn't work well:** The transcriptions weren't accurate most of the time. Whisper `tiny.en` often misheard words, especially with fast speech or background noise, and a wrong transcription meant a wrong translation. The translations themselves were also often inaccurate. The small model (`qwen2.5:1.5b`) sometimes changed the meaning of the sentence, and the Yoda translations didn't always flip the word order. I picked both models for speed on the Pi, but the trade-off was accuracy.
 
 ### What lessons can you take away from the WoZ interactions for designing a more autonomous version of the system?
-\*\**your answer here*\*\*
+
+In Part 1, when I acted as the device, I understood every sentence perfectly and could translate it however I wanted. The autonomous version showed that the hardest part of replacing the wizard isn't the dialogue flow, it's the understanding. Things I'd change:
+- Use a bigger speech model like `base.en`, even though it's slower
+- Show the transcription on screen so users can see what the device heard and retry if it's wrong
+- Use a larger LLM, or give it more examples per persona, to keep translations closer to the original meaning
 
 ### How could you use your system to create a dataset of interaction? What other sensing modalities would make sense to capture?
-\*\**your answer here*\*\*
+
+The device could log every interaction: the audio, the transcription, the persona, the translation, the command chosen, and timing data like how long users took to start talking. Saying "hear it again" or getting a "Sorry" would be useful signals of where things went wrong. I could also have users press the button to rate translations they liked.
+
+For other sensing modalities, a proximity sensor could detect when someone walks up and start the interaction automatically instead of needing the user to start the script manually. 
 
 <details>
   <summary><strong>Submission Cleanup Reminder (Click to Expand)</strong></summary>
