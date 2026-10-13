@@ -64,9 +64,11 @@ Sketch #4: Is there enough room for the arm with the curtain to swing up and not
 
 Sketch #5: How tall does the wall have to be to be taller than the standard cup size? 
 
-**\*\*\*Pick one design to prototype and explain why.\*\*\***
+The design I choose to prototype is Sketch #1, named The Third Wheel 
 
-Build a cardboard or other low-fidelity physical prototype of your design.
+The Third Wheel is a small figure who sits at the table during a romantic candlelit dinner and never got the hint that he wasn’t invited. Dimming the lights is one of the most familiar signals that a dinner has turned romantic, so I built the interaction around that moment. When the lights go down, he slowly turns his back on the couple, as if to say “I don't need to see this.” When the lights come back up, he turns around again and goes back to enjoying his meal / watching.
+
+I chose this because I feel the interaction has good readability (since a whole-body turn is the clearest reaction from across a table), and because the sensor will stay still in the base while only the figure rotates, so the cable will never twist.
 
 **\*\*\*Document your rough prototype with photos and/or video.\*\*\***
 
