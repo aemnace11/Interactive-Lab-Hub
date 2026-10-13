@@ -45,21 +45,19 @@ F) [Final Documentation](#part-f)
 ### Physical Interaction Design: Feast Automata
 
 <img width="650" height="350" alt="Screenshot 2026-10-13 at 7 22 27 PM" src="https://github.com/user-attachments/assets/dbe97d58-4f67-4be2-8fe8-9baa79735889" />
-Sketch #1
+Sketch #1: Questions raised about this are should the sensor sit in the base or ride on the figure, and if it does ride on the figure, will the cable twists every time it turns affect it? Also, will the figure’s own body shadow the sensor as it turns? That could set off a feedback loop where it turns, darkens its own sensor, and turns again. When physically prototyping, I have to see whether the height of the figure creates enough of a shadow regardless of the orientation of the light above. 
 
 <img width="650" height="350" alt="Screenshot 2026-10-13 at 7 22 53 PM" src="https://github.com/user-attachments/assets/2614262e-6ba6-496e-a6af-51afb25c6982" />
-Sketch #2
+Sketch #2: For this design, questions raised are how big does the torso have to be to hide a servo? And do the raised hands shade the hat sensor?
 
 <img width="650" height="350" alt="Screenshot 2026-10-13 at 7 23 11 PM" src="https://github.com/user-attachments/assets/3fc2949d-1649-48b8-ba83-bc078ac5e1eb" />
-Sketch #3
+Sketch #3: This design also makes me wonder about the shadow cast on the light sensor, especially if the raised menu blocks the sensor’s view of the ceiling. Ultimately, in the physical prototype of anything involved with a light sensor I have to see its sensitivity and if soft shadows will trigger it. 
 
 <img width="650" height="350" alt="Screenshot 2026-10-13 at 7 23 41 PM" src="https://github.com/user-attachments/assets/da340d65-c161-4d20-a282-8f48e592c683" />
-Sketch #4
+Sketch #4: Is there enough room for the arm with the curtain to swing up and not hit anything, how far does the curtain travel for a given arm length? Is the curtain too heavy for the arm connected to the servo? Would the vertical post be hollow inside? How will the servo motor stay up that high inside of the vertical post?
 
 <img width="650" height="350" alt="Screenshot 2026-10-13 at 7 23 59 PM" src="https://github.com/user-attachments/assets/ef4f8463-a7e1-47cc-80d4-e59af9a722bd" />
-Sketch #5
-
-**\*\*\*What questions do these sketches raise? What do you need to physically prototype to answer them?\*\*\***
+Sketch #5: How tall does the wall have to be to be taller than the standard cup size? 
 
 **\*\*\*Pick one design to prototype and explain why.\*\*\***
 
