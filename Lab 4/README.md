@@ -44,7 +44,7 @@ F) [Final Documentation](#part-f)
 ### Part D
 ### Physical Interaction Design: Feast Automata
 
-<img width="362" height="687" alt="Screenshot 2026-10-13 at 7 22 27 PM" src="https://github.com/user-attachments/assets/dbe97d58-4f67-4be2-8fe8-9baa79735889" />
+<img width="600" height="350" alt="Screenshot 2026-10-13 at 7 22 27 PM" src="https://github.com/user-attachments/assets/dbe97d58-4f67-4be2-8fe8-9baa79735889" />
 Sketch #1
 
 <img width="380" height="859" alt="Screenshot 2026-10-13 at 7 22 53 PM" src="https://github.com/user-attachments/assets/2614262e-6ba6-496e-a6af-51afb25c6982" />
