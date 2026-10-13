@@ -44,19 +44,19 @@ F) [Final Documentation](#part-f)
 ### Part D
 ### Physical Interaction Design: Feast Automata
 
-<img width="600" height="350" alt="Screenshot 2026-10-13 at 7 22 27 PM" src="https://github.com/user-attachments/assets/dbe97d58-4f67-4be2-8fe8-9baa79735889" />
+<img width="650" height="350" alt="Screenshot 2026-10-13 at 7 22 27 PM" src="https://github.com/user-attachments/assets/dbe97d58-4f67-4be2-8fe8-9baa79735889" />
 Sketch #1
 
-<img width="380" height="859" alt="Screenshot 2026-10-13 at 7 22 53 PM" src="https://github.com/user-attachments/assets/2614262e-6ba6-496e-a6af-51afb25c6982" />
+<img width="650" height="350" alt="Screenshot 2026-10-13 at 7 22 53 PM" src="https://github.com/user-attachments/assets/2614262e-6ba6-496e-a6af-51afb25c6982" />
 Sketch #2
 
-<img width="292" height="880" alt="Screenshot 2026-10-13 at 7 23 11 PM" src="https://github.com/user-attachments/assets/3fc2949d-1649-48b8-ba83-bc078ac5e1eb" />
+<img width="650" height="350" alt="Screenshot 2026-10-13 at 7 23 11 PM" src="https://github.com/user-attachments/assets/3fc2949d-1649-48b8-ba83-bc078ac5e1eb" />
 Sketch #3
 
-<img width="288" height="822" alt="Screenshot 2026-10-13 at 7 23 41 PM" src="https://github.com/user-attachments/assets/da340d65-c161-4d20-a282-8f48e592c683" />
+<img width="650" height="350" alt="Screenshot 2026-10-13 at 7 23 41 PM" src="https://github.com/user-attachments/assets/da340d65-c161-4d20-a282-8f48e592c683" />
 Sketch #4
 
-<img width="636" height="213" alt="Screenshot 2026-10-13 at 7 23 59 PM" src="https://github.com/user-attachments/assets/ef4f8463-a7e1-47cc-80d4-e59af9a722bd" />
+<img width="650" height="350" alt="Screenshot 2026-10-13 at 7 23 59 PM" src="https://github.com/user-attachments/assets/ef4f8463-a7e1-47cc-80d4-e59af9a722bd" />
 Sketch #5
 
 **\*\*\*What questions do these sketches raise? What do you need to physically prototype to answer them?\*\*\***
