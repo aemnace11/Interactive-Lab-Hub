@@ -70,7 +70,16 @@ The Third Wheel is a small figure who sits at the table during a romantic candle
 
 I chose this because I feel the interaction has good readability (since a whole-body turn is the clearest reaction from across a table), and because the sensor will stay still in the base while only the figure rotates, so the cable will never twist.
 
-**\*\*\*Document your rough prototype with photos and/or video.\*\*\***
+
+One thing I did observe in my rough prototype was that the figure does cast a shadow, so I attempted to place the sensor in the corner of the base so that it is not hit by the shadow in any part of the figure's rotation. 
+
+<img width="3000" height="2250" alt="IMG_7104" src="https://github.com/user-attachments/assets/d9dc5b80-edd3-4859-8499-b9710f6394e7" />
+
+<img width="1536" height="2048" alt="IMG_7105" src="https://github.com/user-attachments/assets/9c2d95bd-e536-4e6a-99ac-fc2bc664b4aa" />
+
+<img width="1536" height="2048" alt="IMG_7103" src="https://github.com/user-attachments/assets/74d273af-15f1-4bed-a5f6-4eb3a1c61b13" />
+
+
 
 Proof I was present in class for Part 1: I had to complete the 3d printer / laser cutter safety training with the TAs during part of lab time, and also received a servo motor which was only possible during lab period. 
 
