@@ -72,6 +72,8 @@ I chose this because I feel the interaction has good readability (since a whole-
 
 **\*\*\*Document your rough prototype with photos and/or video.\*\*\***
 
+Proof I was present in class for Part 1: I had to complete the 3d printer / laser cutter safety training with the TAs during part of lab time, and also received a servo motor which was only possible during lab period. 
+
 ---
 
 ## Part 2
