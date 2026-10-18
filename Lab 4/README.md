@@ -90,49 +90,111 @@ Proof I was present in class for Part 1: I had to complete the 3d printer / lase
 Proof I was present in class for Part 2: I was able to get a new servo motor and materials from the cart, as well as the googly eyes that Professor provided. We didn't do anything in lab except for work on our labs. There was one group that developed a device that produced music (like a DJ) which they were playing around with in class. 
 
 
-### Part E
+### Part E: Build and Integrate
 
-#### Build & Integrate: Sensing + Actuation
+The Third Wheel is a guy who shows up to your candlelit dinner and doesn't take the hint. He stands on a small base at the edge of the table. When the lights go down he turns his back on the couple, and he stays turned away until the lights are all the way back on. Every so often he can't help himself and slowly turns back around to look, then snaps away.
 
-For Part 2, build the Feast Automata interaction you developed in Part D by connecting sensing/input to physical actuation.
+Hardware:
 
-**Your prototype should:**
-- Use at least one sensing or input device.
-- Use servo-based physical actuation.
-- Connect sensing and actuation into a meaningful interaction around eating, drinking, cooking, serving, or sharing food.
-- Additional inputs, displays, LEDs, buttons, or other outputs are optional extensions.
+- APDS-9960 light sensor
+- servo motor
+- Raspberry Pi 5
+- Separate USB-C power for the Pi and for the Servo pHAT
 
-**Document your system with:**
-- Code for your sensing + actuation prototype
-- Photos and/or video of the working prototype in action
-- A simple interaction diagram or sketch showing how sensing and actuation are connected
-- Written reflection: What did you learn about connecting sensing, movement, and physical form? What was fun, surprising, or challenging?
+All code lives in [third_wheel](third_wheel/).
 
-**Questions to consider:**
-- How does your chosen sensor or input shape the physical response?
-- How does the physical arrangement of the sensor and actuator change the interaction?
-- What thresholds, timing, or movement patterns make the interaction feel clear or playful?
-- What changes when you adjust the sensor placement or servo motion?
+#### Interaction diagram
 
-Iterate on the sensing, movement, and physical form, and document what you discover.
 
-### Part F
 
-### Final Documentation
+#### Photos and video
 
-Document all the prototypes and iterations you have designed and worked on! Again, deliverables for this lab are writings, sketches, photos, and videos that show what your prototype:
-* "Looks like": shows how the device should look, feel, sit, weigh, etc.
-* "Works like": shows what the device can do
-* "Acts like": shows how a person would interact with the device
+
+
+#### Iterations
+
+1. Cardboard prototype. Out of my five sketches I went with the turntable. The figure stands directly on the servo horn and the sensor stays fixed in the base, so there's no linkage and nothing twists.
+2. First version of the code. He turned away when the room got dark and turned back, with a pause halfway, once the light passed a middle threshold. I checked the logic against a simulated sensor before using the hardware to make sure a quick shadow or a light level sitting near the threshold wouldn't set him off.
+3. Second version. I changed it so he stays turned away until the lights are fully back on and added the sneak peeks: a slow turn all the way around, a short stare, then a snap back. If the lights come back on during a peek he just stays facing the table.
+4. Getting the servo running. The script ran but the servo didn't move. I went through three servos and two pHATs before realizing the servo was plugged into the Qwiic port instead of the channel 0 header, and the pHAT didn't have its own USB-C power. After fixing both it worked right away.
+5. 3D printing. I replaced the cardboard with four printed parts (base, lid, turntable and figure), all printed flat without supports. The servo slot in the lid came out a little tight, so I shaved it down until the servo fit and its tabs sat on the ledge underneath. After that everything went together fine.
+
+#### Reflection
+
+The light sensor shaped the whole interaction. Room light changes for everyone at the table at once, so the response had to be slow and deliberate instead of twitchy. I average about 1.6 seconds of readings, so he reacts to the room changing and not to someone's hand passing over him.
+
+Placement mattered more than I expected. The sensor sits on the lid behind the turntable, outside the area he sweeps through, so his body can't shade it while he turns. If it were under him, turning could drop the reading and trigger another turn. The servo's safe range is only 0 to 120 degrees, so I made the figure flat with a front and a back. Once he passes about 90 degrees you're looking at the back of his head, so 120 degrees reads as turned away. The candle also matters: putting it close to the sensor raises the dim reading and shrinks the gap between dim and bright, so I calibrate with the candle on.
+
+For timing, there's a gap between the two thresholds. He turns away when the light drops about halfway from full to dim, and only turns back once it's 85% of the way back to full. That gap stops him from flipping back and forth. What makes it funny is the contrast in speed. He turns away fast, turns back slowly with a pause halfway, and on a sneak peek creeps around for about 5 seconds before snapping away instantly. The peeks happen at random times so you can't predict them. Speeding up the creep kills the suspense, and taking out the pause on the way back makes him look relieved instead of suspicious.
+
+The hardest part was the hardware bring-up, which came down to the wrong connector and missing power. The printed slot being tight was the other lesson: printed holes come out smaller than designed, so next time I'd add more clearance. The most fun part was the sneak peek, since it turned a simple light trigger into something with a personality.
 
 ---
 
-## Deliverables \& Submission for Lab 4
+### Part F: Final Documentation
 
-The deliverables for this lab are, writings, sketches, photos, and videos that show what your prototype:
-* "Looks like": shows how the device should look, feel, sit, weigh, etc.
-* "Works like": shows what the device can do.
-* "Acts like": shows how a person would interact with the device.
+#### Looks like
+
+A small pedestal that sits at the side of a dinner table. The base is a 100 x 100 mm rounded box with THE THIRD WHEEL engraved on the front like a nameplate. The figure is 106 mm tall, wearing a top hat, bow tie and buttoned jacket, with a shocked face engraved on the front. The back of his head is flat and drawn on, since that's what the couple sees when he turns away. The servo and wiring are hidden inside the base, the cables come out a notch in the back, and the light sensor sits in corner guides on the lid behind him.
+
+3d-printed with glow-in-the-dark PLA at 0.2 mm layers, 15-20% infill, with no supports.
+
+#### Works like
+
+The sensor reads overall brightness every 0.2 seconds and the Pi averages the last 8 readings. When the average drops below the dark threshold, the servo turns him 120 degrees away, and he stays there until the average goes above the bright threshold. While he's turned away, a random 10 to 25 second timer triggers a sneak peek. During the peek he takes new readings; if the lights are fully on he stays facing the table, and if not he snaps back away. Every move is limited to the servo's safe range of 0 to 120 degrees.
+
+
+#### Acts like
+
+1. Dinner starts with the lights on. He faces the table and watches.
+2. The couple dims the lights and lights the candle. About a second later he turns his back on them.
+3. He stays turned away while they eat and talk.
+4. Every 10 to 25 seconds he slowly turns all the way back around, stares for a second, and snaps away.
+5. When the lights come all the way back up, he turns back slowly, pauses halfway, then faces the table again.
+6. If the lights come back on in the middle of a peek, he doesn't snap away. He just stays there like nothing happened.
+
+---
+
+### User Testing
+
+Setup: A couple's candelight dinner setting was simulated. The device sat at one end of a small dinner table with a candle in the middle and the testers sitting down. The room lights started on.
+
+#### Tester 1
+
+- Noticed the figure facing the table
+- Turned the lights off with the candle still lit
+- Figure turned away about a second later, tester laughed
+- Kept watching and caught a full sneak peek, laughed again at the snap back
+- Blew out the candle to see if the figure would react
+- No change, figure stayed turned away
+
+Feedback:
+
+- Interaction was easy to follow and worked smoothly
+- Blowing out the candle should do something
+- Suggested the figure stop peeking and stay turned away until the lights come back on
+
+#### Tester 2
+
+- Didn't notice the figure at first
+- Was looking at the candle when the lights dimmed, missed the first turn
+- Caught a sneak peek halfway through about 15 seconds later
+- Laughed at the snap back and said "wait, did he just look at us?"
+- Raised the lights halfway to see what would happen, figure didn't turn back
+- Assumed it was broken until the lights went all the way up and the figure turned around
+
+Feedback:
+
+- First turn away is easy to miss
+- Raising the lights partway made it look broken
+- Suggested a small plate with a fork and knife in front of the figure so it feels like he's eating with them, not just watching
+
+#### Changes for the next version
+
+- Lower threshold for the candle going out that stops the sneak peeks
+- Small printed plate and utensils in front of the figure
+- A reaction to the lights being raised partway
+- A bit more clearance on the servo slot in the lid
 
 For submission, the readme.md page for this lab should be edited to include the work you have done:
 * Upload any materials that explain what you did, into your lab 4 repository, and link them in your lab 4 readme.md.
