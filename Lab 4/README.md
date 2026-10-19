@@ -101,7 +101,7 @@ Hardware:
 - Raspberry Pi 5
 - Separate USB-C power for the Pi and for the Servo pHAT
 
-All code lives in [third_wheel](third_wheel/).
+All code and stl files live in [third_wheel](third_wheel/).
 
 #### Interaction diagram
 
@@ -109,7 +109,9 @@ All code lives in [third_wheel](third_wheel/).
 
 #### Photos and video
 
+<img width="4284" height="5712" alt="IMG_7147" src="https://github.com/user-attachments/assets/ee136fea-3412-44cc-83d6-ea9895006b1a" />
 
+<img width="4284" height="5712" alt="IMG_7143" src="https://github.com/user-attachments/assets/301be6f7-a2fd-47ad-b3b1-d82214c5e887" />
 
 #### Iterations
 
@@ -118,6 +120,8 @@ All code lives in [third_wheel](third_wheel/).
 3. Second version. I changed it so he stays turned away until the lights are fully back on and added the sneak peeks: a slow turn all the way around, a short stare, then a snap back. If the lights come back on during a peek he just stays facing the table.
 4. Getting the servo running. The script ran but the servo didn't move. I went through three servos and two pHATs before realizing the servo was plugged into the Qwiic port instead of the channel 0 header, and the pHAT didn't have its own USB-C power. After fixing both it worked right away.
 5. 3D printing. I replaced the cardboard with four printed parts (base, lid, turntable and figure), all printed flat without supports. The servo slot in the lid came out a little tight, so I shaved it down until the servo fit and its tabs sat on the ledge underneath. After that everything went together fine.
+   
+   BONUS TIP: I made the 3d-printed prototype using glow-in-the-dark material!
 
 #### Reflection
 
@@ -176,16 +180,15 @@ Feedback:
 
 #### Tester 2
 
-- Didn't notice the figure at first
-- Was looking at the candle when the lights dimmed, missed the first turn
-- Caught a sneak peek halfway through about 15 seconds later
+- Was looking at the candle when the lights were dimmed, and missed the first sneak peek
+- Caught the next sneak peek halfway through about 15 seconds later
 - Laughed at the snap back and said "wait, did he just look at us?"
 - Raised the lights halfway to see what would happen, figure didn't turn back
 - Assumed it was broken until the lights went all the way up and the figure turned around
 
 Feedback:
 
-- First turn away is easy to miss
+- First sneak peek is easy to miss, maybe add a sound during
 - Raising the lights partway made it look broken
 - Suggested a small plate with a fork and knife in front of the figure so it feels like he's eating with them, not just watching
 
@@ -196,7 +199,4 @@ Feedback:
 - A reaction to the lights being raised partway
 - A bit more clearance on the servo slot in the lid
 
-For submission, the readme.md page for this lab should be edited to include the work you have done:
-* Upload any materials that explain what you did, into your lab 4 repository, and link them in your lab 4 readme.md.
-* Link your Lab 4 readme.md in your main Interactive-Lab-Hub readme.md. 
-* Labs are due on Mondays, make sure to submit your Lab 4 readme.md to Canvas.
+
