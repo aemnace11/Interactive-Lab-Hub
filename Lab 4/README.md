@@ -102,6 +102,7 @@ Hardware:
 - Separate USB-C power for the Pi and for the Servo pHAT
 
 All code and stl files live in [third_wheel](third_wheel/).
+The parts were 3D printed from these files: [base.stl](base.stl), [lid.stl](lid.stl), [turntable.stl](turntable.stl) and [figure.stl](figure.stl).
 
 #### Interaction diagram
 
