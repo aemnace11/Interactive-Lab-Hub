@@ -2,135 +2,16 @@
 
 Achilles Emnace 
 
-[![Watch the video](https://user-images.githubusercontent.com/1128669/135009222-111fe522-e6ba-46ad-b6dc-d1633d21129c.png)](https://youtu.be/LZ0VJClIlRI?si=Yy84mcyVYuVV19mn)
-
-In this lab, we want you to design interaction with a speech-enabled device — something that listens and talks to you. This device can do anything *but* control lights (since we already did that in Lab 1). First, we want you to storyboard what you imagine the conversational interaction to be like. Then you will use wizarding techniques to elicit examples of what people might say, ask, or respond. We then want you to use the examples collected from at least two other people to inform the redesign of the device.
-
-We will focus on **audio** as the main modality for interaction to start; these general techniques can be extended to **video**, **haptics** or other interactive mechanisms in the second part of the Lab.
-
-A note on what you are building with. Speech interfaces are usually taught as two boxes — speech-in, speech-out — and that framing hides the part that actually determines whether an interaction works. Between listening and speaking sits the question of **whose turn it is**: when does the device decide you have finished talking, and how long does it make you wait before it answers? This lab gives you direct control over both, and we will ask you to notice what changes when you move them.
-
-## Prep for Part 1: Get the Latest Content and Pick up Additional Parts
-
-Please check instructions in [prep.md](prep.md) and complete the setup.
-
-### Pick up Web Camera If You Don't Have One
-
-Students who have not already received a web camera will receive their Webcam and at the beginning of lab. If you cannot make it to class this week, please contact the TAs to ensure you get these.
-
-### Get the Latest Content
-
-As always, pull updates from the class Interactive-Lab-Hub to both your Pi and your own GitHub repo.
-
-**\[recommended\]** Option 1: On the Pi, `cd` to your `Interactive-Lab-Hub`, pull the updates from upstream (class lab-hub) and push the updates back to your own GitHub repo. You will need the *personal access token* for this.
-
-```
-pi@ixe00:~$ cd Interactive-Lab-Hub
-pi@ixe00:~/Interactive-Lab-Hub $ git pull upstream Fall2026
-pi@ixe00:~/Interactive-Lab-Hub $ git add .
-pi@ixe00:~/Interactive-Lab-Hub $ git commit -m "get lab3 updates"
-pi@ixe00:~/Interactive-Lab-Hub $ git push
-```
-
-Option 2: On your own GitHub repo, create a pull request to get updates from the class Interactive-Lab-Hub. After you have the latest updates online, go to your Pi, `cd` to your `Interactive-Lab-Hub` and use `git pull`.
-
----
 
 # Part 1
 
-## Setup
-
-Create and activate a virtual environment for this lab:
-
-```
-pi@ixe00:~$ cd Interactive-Lab-Hub/Lab\ 3
-pi@ixe00:~/Interactive-Lab-Hub/Lab 3 $ python3 -m venv .venv
-pi@ixe00:~/Interactive-Lab-Hub/Lab 3 $ source .venv/bin/activate
-(.venv) pi@ixe00:~/Interactive-Lab-Hub/Lab 3 $
-```
-
-Install the Python dependencies:
-
-```
-(.venv) $ pip install -r requirements.txt
-```
-
-This takes a few minutes. If you would like it to take considerably less time, [`uv`](https://docs.astral.sh/uv/) is a drop-in replacement for `pip` that is dramatically faster on the Pi:
-
-```
-(.venv) $ pip install uv && uv pip install -r requirements.txt
-```
-
-Then run the setup script, which installs the classic speech synthesizers, downloads the voice activity detection model, and pre-fetches a neural voice and a speech recognition model so you are not waiting on downloads during lab:
-
-```
-(.venv):~$ cd speech-scripts
-(.venv) $ ./setup.sh
-```
-
-Check your audio devices before going further. `arecord -l` lists capture devices and `aplay -l` lists playback devices; if your webcam microphone or Bluetooth speaker does not appear, fix that first — every script below assumes the system defaults are the ones you want.
-
 ## A. Text to Speech
 
-Your Pi can speak in several quite different ways, and the differences are audible in a way that matters for design. In `speech-scripts/` there are shell scripts for each.
+My own shell file is in greeting_demo.sh.
 
-### The classic engines
-
-```
-(.venv) $ cd speech-scripts
-
-(.venv) $ sudo apt update
-(.venv) $ sudo apt install -y espeak festival festvox-kallpc16k
-
-(.venv) $ ./espeak_demo.sh
-(.venv) $ ./festival_demo.sh
-```
-
-You can run these `.sh` files by typing `./filename`, and read one with `cat filename`. You can also play audio files directly with `aplay filename` — try `aplay lookdave.wav`.
-
-These are all decades-old technology and they sound like it. `espeak-ng` is a *formant synthesizer*: it generates speech from an acoustic model of the vocal tract, which is why it sounds robotic but also why the whole thing fits in a couple of megabytes and responds instantly. `festival` is *concatenative*: they stitch together recorded fragments of a real speaker, which sounds more human but breaks audibly at the seams.
-
-### Neural TTS with Piper
-
-Note that the Piper command line changed in version 1.x — voices are now downloaded explicitly with `python3 -m piper.download_voices`, and you invoke it as `python3 -m piper`. Tutorials you find online may show the old `echo ... | piper --model ...` form, which no longer works. Browse the [voice samples](https://rhasspy.github.io/piper-samples) and download a different one if you'd like:
-
-```
-(.venv) $ python3 -m piper.download_voices en_US-lessac-medium
-```
-
-[Piper](https://github.com/OHF-Voice/piper1-gpl) synthesizes speech with a small neural network, runs comfortably on the Pi 5, and sounds markedly better than the above.
-
-```
-(.venv) $ ./piper_demo.sh
-```
-
-The demo script also shows `--output-raw`, which streams audio to the speaker as it is generated rather than writing a file first. Listen for the difference in how quickly speech begins. In a conversational system this gap is the thing your user experiences as responsiveness.
-
-\*\***Write your own shell file to use your favorite of these TTS engines to have your Pi greet you by name.**\*\*
-This filename is greeting_demo.sh.
-
-\*\***Then answer: Is the same greeting, in these different voices, the same greeting? Describe one concrete way the voice changed what the utterance seemed to mean or who seemed to be speaking.**\*\*
 The greeting is not the same in different voices. In my file, I have a monotone American male (en_US-joe-medium) greeting vs a bright British female (en_GB-semaine-medium) greeting, and the way that I receive the two are completely different even though it is the same sentence. I feel much more welcomed by the tone and utterance of the female greeting, while the American male makes me feel as if he is greeting me indifferently. 
 
 ## B. Speech to Text
-
-We use [faster-whisper](https://github.com/SYSTRAN/faster-whisper), a reimplementation of OpenAI's Whisper model that runs several times faster on CPU and does not require PyTorch. All processing happens on the Pi; nothing is sent to a server.
-
-```
-(.venv) $ python transcribe.py lookdave.wav
-```
-
-The transcript is not the interesting output here — the timings are. Run it again with a larger model and compare:
-
-```
-(.venv) $ python transcribe.py lookdave.wav --model base.en
-(.venv) $ python transcribe.py lookdave.wav --model small.en
-#  noted that the first run may take longer because the model is downloaded, and that the HF unauthenticated-request warning is expected and not an error.
-```
-
-Available sizes, smallest first: `tiny.en`, `base.en`, `small.en`, `medium.en`. The `.en` variants are English-only and faster than their multilingual counterparts at the same size.
-
-\*\***Record a few seconds of your own speech (`arecord -d 5 -f cd -c 1 -r 16000 test.wav`) and transcribe it with at least two model sizes. Report the real-time factor for each. At what point does the accuracy improvement stop being worth the delay, for a system that has to answer you?**\*\*
 
 Sentence I said: "Who is the best soccer player ever, Messi or Ronaldo?"
 
@@ -144,58 +25,19 @@ medium.en: 3.28x, transcription: "Who is the best soccer player ever, Messi or R
 
 Accuracy can't be judged here, because a single sentence where tiny.en was already perfect and base.en did worse than tiny.en is too inconsistent to show any trend. On latency, though, the cutoff is clear: small.en and medium.en run slower than real time (real-time factor > 1), so for a system that has to answer you, extra accuracy stops being worth it past base.en, and tiny.en is the practical pick.
 
-\*\***Write your own script that verbally asks for a numerical input (a phone number, zipcode, number of pets) and records the answer the respondent provides.**\*\* Numbers are a good stress test — transcription systems make characteristic errors on digit strings, and you will want to know what they are before you design around them.
-
-This code is in ask_zipcode.py.
+My own code for testing numerical input is in ask_zipcode.py.
 
 ## C. Turn-taking: knowing when someone has stopped talking
 
-Everything so far has worked on fixed audio files. A real conversational device does not get told when to start and stop recording — it has to decide. This is the problem that makes speech interfaces hard, and it is mostly not a speech recognition problem.
-
-We use a **voice activity detector** (VAD) to segment the microphone stream into utterances. `listen.py` runs Silero VAD continuously and hands each detected utterance to faster-whisper:
-
-```
-(.venv) $ cd speech-scripts
-(.venv) $ python listen.py
-```
-
-Speak, pause, and watch it transcribe. Now change the endpointing threshold — the amount of silence the system requires before it decides your turn is over:
-
-```
-(.venv) $ python listen.py --min-silence 0.2
-(.venv) $ python listen.py --min-silence 1.5
-```
-
-\*\***Try both extremes, and something in between. Describe what each one feels like to talk to. Note specifically: at 0.2s, what kinds of normal speech get cut off? At 1.5s, what does the delay make the system seem like?**\*\*
-
 At 0.2s, if you take any pause to think of a word, or saying a sentence with small break(s) between such as a phone number or list of things, then your speech will get cut off. If feels as if you are talking to someone who interrupts you whenever you pause when talking. At 1.5s however, the pause is too long and it feels like you are talking to a robot or someone who's on the end of a bad phone connection line. I felt like I could feel the compute and comprehend time for the listener to process what I had said. Trying 0.8s which was in the middle of the 2 extremes seemed to fit the best for a normal conversation flow and not cut me off too harshly. 
 
-There is no correct value. A system that takes drink orders and a system that listens to someone think out loud want very different thresholds, and the right one depends on what your users are doing with their pauses.
-
-### The complete loop
-
-`echo_bot.py` puts the pieces together: it listens, endpoints, transcribes, and speaks a reply through Piper. The dialogue policy is deliberately trivial — it repeats what you said — so that everything you notice is a property of the timing rather than the content.
-
-```
-(.venv) $ python echo_bot.py
-```
-
 ## D. Storyboard
-
-Storyboard and/or use a Verplank diagram to design a speech-enabled device. (Stuck? Make a device that talks for dogs. If that is too stupid, find an application that is better than that.)
-
-\*\***Post your storyboard and diagram here.**\*\*
-\*\***Please describe and document your process.**\*\*
 
 <img width="1206" height="497" alt="corporate_translator" src="https://github.com/user-attachments/assets/368721c0-581f-4f0c-a6bc-1b206edcc8b3" />
 Script included in this storyboard diagram of an example interaction.
 
 
 ## E. Acting out the dialogue
-
-Find a partner, and *without sharing the script with your partner* try out the dialogue you've designed, where you (as the device designer) act as the device you are designing. Please record this interaction (for example, using Zoom's record feature).
-
-\*\***Describe if the dialogue seemed different than what you imagined when it was acted out, and how.**\*\*
 
 https://github.com/user-attachments/assets/2ffc9c35-733b-40de-a3df-c807988ec33c
 
@@ -205,43 +47,132 @@ The dialogue went pretty much how I imagined, because the questions were framed 
 
 # Lab 3 Part 2
 
-For Part 2, you will redesign the interaction with the speech-enabled device using the data collected, as well as feedback from part 1.
-
 ## Prep for Part 2
 
-1. What are concrete things that could use improvement in the design of your device? For example: wording, timing, anticipation of misunderstandings.
-2. What are other modes of interaction *beyond speech* that you might also use to clarify how to interact? In particular: how does someone know when the device is listening, and when it is thinking? You have a screen and an LED.
-3. Make a new storyboard, diagram and/or script based on these reflections.
-4. (optional) Integrate [input devices](inputs.md) in the system
+**1. What are concrete things that could use improvement in the design of your device? For example: wording, timing, anticipation of misunderstandings.**
+
+- **Timing:** In Part 1, the tester hesitated at the first "hear it again, try another, or are you done?" question, and a fixed listening window could miss that. I'll give users up to 10 seconds to start talking, and end their turn after 1.2s of silence instead of recording for a set length. Part 1 showed 0.8s worked best for normal conversation. Translation needs full sentences, though, and people pause while figuring out what to say, so I'm going a little longer.
+- **Wording:** I'll keep the follow-up question listing exactly three options so users know what they can say. The device should also accept natural variations like "repeat that," "next one," "that's all," or "I'm not done."
+- **Misunderstandings:** If the device doesn't recognize a response, it will say "Sorry I didn't understand that, please say it again." and listen again, instead of repeating the whole question. It should also catch common transcription mistakes, like "here it again" or "try and other."
+- **Switching personas:** In Part 1, there was no way to change persona mid-session. Users should be able to switch at any time. If they switch and then say "hear it again," they'll hear the same sentence in the new persona.
+
+**2. What are other modes of interaction beyond speech that you might also use to clarify how to interact? In particular: how does someone know when the device is listening, and when it is thinking? You have a screen and an LED.**
+
+- **Listening:** The green LED turns on only while the device is listening, and turns off as soon as the user is done talking.
+- **Thinking:** The screen shows the current persona in large text, with a small status line underneath ("Listening...", "Transcribing...", "Translating...") so users know the device is working and not frozen.
+- **Persona:** A small hint at the top of the screen ("press button to switch") tells users how to change personas without the device having to explain it out loud.
+
+**3. Make a new storyboard, diagram and/or script based on these reflections.**
+
+*[Screen: white background, "Corporate" in the middle, "press button to switch" at the top]*
+
+- **Device:** "Please say what you would like to be translated." *[LED on, screen: "Listening..."]*
+- **User:** "I didn't read your email and I'm not going to."
+- *[1.2s of silence → LED off, screen: "Transcribing..." → "Translating..."]*
+- **Device:** "I haven't had the bandwidth to review your email yet, so I'll need to deprioritize it for now."
+- **Device:** "Want to hear that again, try another, or are you done?" *[LED on]*
+- **User:** "Um... what?"
+- **Device:** "Sorry I didn't understand that, please say it again." *[LED on]*
+- **User:** *[presses button, screen switches to "Yoda"]* "Hear it again."
+- **Device:** "Read your email, I did not. Going to, I am not."
+- **Device:** "Want to hear that again, try another, or are you done?"
+- **User:** "Try another."
+- **Device:** "Please say what you would like to be translated."
+- **User:** "I ate the whole pizza by myself and I regret nothing."
+- **Device:** "The whole pizza, eaten by myself I have. Regret nothing, I do. Hmm."
+- **Device:** "Want to hear that again, try another, or are you done?"
+- **User:** "I'm done."
+- **Device:** "Goodbye!" *[LED off, screen off]*
+
+**4. (optional) Integrate input devices in the system**
+
+I am going to integrate a joystick or button as an input device to allow the user to switch between personas.
+
 
 ## Prototype your system
 
-The system should:
-* use the Raspberry Pi
-* use one or more sensors
-* require participants to speak to it
+The Corporate Translator takes a plain English sentence and says it back in one of two personas: **Corporate** (sugar-coated business jargon) or **Yoda** (Yoda's backwards sentence structure). Everything runs locally on the Pi.
 
-*Document how the system works.*
+**Hardware:** Raspberry Pi 5, USB mic, USB speaker, Adafruit Mini PiTFT, SparkFun Qwiic Button (green LED)
 
-*Include videos or screencaptures of both the system and the controller.*
+**How it works:**
+1. The screen shows the current persona. Pressing the button switches personas at any time.
+2. The device asks "Please say what you would like to be translated." and the button's green LED turns on to show it's listening.
+3. After 1.2s of silence, the LED turns off and the screen shows "Transcribing..." then "Translating..."
+4. The device says the translation, then asks "Want to hear that again, try another, or are you done?"
+5. "Hear it again" replays the translation (in the new persona if you switched), "try another" starts over, and "done" ends the session. Anything else gets "Sorry I didn't understand that, please say it again."
+
+**Under the hood:**
+- Silero VAD detects when the user stops talking (same setup as `echo_bot.py`)
+- faster-whisper (`tiny.en`) transcribes speech
+- Ollama (`qwen2.5:1.5b`) translates using a short prompt and examples for each persona
+- Piper (`en_US-joe-medium`) speaks the response
+- The follow-up command matching also catches common mishearings (e.g. "try and other" → try another)
+
+**Changes from Part 1:**
+- Added the LED and on-screen status so users can tell when the device is listening vs. thinking
+- Extended the listening window to 10s, since a tester hesitated at the follow-up question in Part 1
+- Accepts variations of the commands ("repeat that", "next one", "that's all")
+- Originally planned to use a joystick to switch personas, but the board wasn't detected over I2C, so I switched to the button
+
+**Running it:**
+```
+python corporate_translator.py
+```
+
+Interaction Video: 
+
+
+https://github.com/user-attachments/assets/6d90e352-41f6-40d1-b1ee-4ccff86e23a0
+
+
+
+Controller Video: 
+
+https://github.com/user-attachments/assets/d6a95aaa-3581-44a8-a632-67360d52b635
+
 
 ## Test the system
 
-Try to get at least two people to interact with your system. (Ideally, you would inform them that there is a wizard *after* the interaction, but we recognize that can be hard.)
-
-Answer the following:
+My system is fully autonomous, so I didn't need a wizard during testing. The interaction was designed to be predictable from the start, and an LLM running locally through Ollama could handle the translation, so there was nothing a human needed to fake. Two people tested the device without any instructions besides "talk to it."
 
 ### What worked well about the system and what didn't?
-\*\**your answer here*\*\*
+
+**Worked well:**
+- The LED and on-screen status made it clear when to talk and when to wait. Nobody tried to talk while the device was translating.
+- The 1.2s silence cutoff felt natural, and testers weren't cut off mid-sentence.
+- Switching personas with the button was easy, and hearing the same sentence in both personas got the best reactions.
+- The "Sorry I didn't understand that" recovery kept the conversation going instead of breaking it.
+
+**Didn't work well:**
+- There was a noticeable wait while the LLM generated the translation, which made the device feel slow at times.
+- Both personas use the same Piper voice, so Corporate and Yoda don't sound as different as they could.
+- Transcription and translation accuracy were the biggest problems (see below).
 
 ### What worked well about the controller and what didn't?
-\*\**your answer here*\*\*
+
+Since there was no wizard, my "controller" was the terminal running the script, which logged what the device heard, the persona, the translation, and which command it matched.
+
+**Worked well:** The log made it easy to see exactly where an interaction went wrong, whether it was the speech recognition, the translation, or the command matching.
+
+**Didn't work well:** The transcriptions weren't accurate most of the time. Whisper `tiny.en` often misheard words, especially with fast speech or background noise, and a wrong transcription meant a wrong translation. The translations themselves were also often inaccurate. The small model (`qwen2.5:1.5b`) sometimes changed the meaning of the sentence, and the Yoda translations didn't always flip the word order. I picked both models for speed on the Pi, but the trade-off was accuracy.
 
 ### What lessons can you take away from the WoZ interactions for designing a more autonomous version of the system?
-\*\**your answer here*\*\*
+
+In Part 1, when I acted as the device, I understood every sentence perfectly and could translate it however I wanted. The autonomous version showed that the hardest part of replacing the wizard isn't the dialogue flow, it's the understanding. Things I'd change:
+- Use a bigger speech model like `base.en`, even though it's slower
+- Show the transcription on screen so users can see what the device heard and retry if it's wrong
+- Use a larger LLM, or give it more examples per persona, to keep translations closer to the original meaning
 
 ### How could you use your system to create a dataset of interaction? What other sensing modalities would make sense to capture?
-\*\**your answer here*\*\*
+
+The device could log every interaction: the audio, the transcription, the persona, the translation, the command chosen, and timing data like how long users took to start talking. Saying "hear it again" or getting a "Sorry" would be useful signals of where things went wrong. I could also have users press the button to rate translations they liked.
+
+For other sensing modalities, a proximity sensor could detect when someone walks up and start the interaction automatically instead of needing the user to start the script manually. 
+
+## Proof I attended lab
+
+During the lab period, I picked up the additional USB microphone that wasn't included in my kit. I also had a brief conversation with Professor Wendy about the Talking Angela app, and whether a speech-enabled interaction should be started by the user or by the device.
 
 <details>
   <summary><strong>Submission Cleanup Reminder (Click to Expand)</strong></summary>

@@ -17,9 +17,13 @@
 ---
 
 ## Lab Overview
+<<<<<<< HEAD
 Team: <canvas group name>  
 Members: Full Name (netid, github-handle), ...  
 Project name: <name>
+=======
+Members: Achilles Emnace (aje77, aemnace11)
+>>>>>>> 519de701552ea95d77ece886c4f4f2a8cee46249
 
 
 For lab this week, we focus on both sensing and actuation, bringing new modes of input and output into your devices, while also prototyping the physical structure and overall look of the device. You will consider how the physical form supports sensing and actuation, and how these elements come together to shape the interaction and aesthetics of the device.
@@ -42,6 +46,7 @@ F) [Final Documentation](#part-f)
 
 ---
 
+<<<<<<< HEAD
 ## Part 1 Lab Preparation
 
 ---
@@ -251,253 +256,163 @@ For more details and advanced usage, see the [official SparkFun Servo pHAT docum
 A servo motor is a rotary actuator that allows for precise control of angular position. The position is set by the width of an electrical pulse (PWM). You can read [this Adafruit guide](https://learn.adafruit.com/adafruit-arduino-lesson-14-servo-motors/servo-motors) to learn more about how servos work.
 
 ---
+=======
+>>>>>>> 519de701552ea95d77ece886c4f4f2a8cee46249
 
 ### Part D
 ### Physical Interaction Design: Feast Automata
 
-**Feast Automata:** build a device that **transforms ordinary dining rituals into playful physical interactions.** Begin with a familiar experience around eating, drinking, cooking, serving, or sharing food, and explore how sensing and actuation might augment, exaggerate, automate, or reinterpret your dining experience.
+<img width="650" height="350" alt="Screenshot 2026-10-13 at 7 22 27 PM" src="https://github.com/user-attachments/assets/dbe97d58-4f67-4be2-8fe8-9baa79735889" />
 
-In this part, use the sensing techniques from Parts A–B and the servo actuation from Part C to develop a physical interaction.
+Sketch #1: Questions raised about this are should the sensor sit in the base or ride on the figure, and if it does ride on the figure, will the cable twists every time it turns affect it? Also, will the figure’s own body shadow the sensor as it turns? That could set off a feedback loop where it turns, darkens its own sensor, and turns again. When physically prototyping, I have to see whether the height of the figure creates enough of a shadow regardless of the orientation of the light above. 
 
-#### Physical considerations for sensing
+<img width="650" height="350" alt="Screenshot 2026-10-13 at 7 22 53 PM" src="https://github.com/user-attachments/assets/2614262e-6ba6-496e-a6af-51afb25c6982" />
 
-Sensors need to be positioned in specific locations or orientations to make them useful for an application. Choose a sensor that fits the dining interaction you want to explore. For example, a distance sensor could detect when a cup is placed on a coaster; where the sensor is positioned determines what it can reliably detect.
+Sketch #2: For this design, questions raised are how big does the torso have to be to hide a servo? And do the raised hands shade the hat sensor?
 
-Think about how the larger object needs to be shaped so the sensor can work reliably, where the actuator needs to sit, what moves, and how a person encounters the interaction.
+<img width="650" height="350" alt="Screenshot 2026-10-13 at 7 23 11 PM" src="https://github.com/user-attachments/assets/3fc2949d-1649-48b8-ba83-bc078ac5e1eb" />
 
-#### Physical Form and Housing
+Sketch #3: This design also makes me wonder about the shadow cast on the light sensor, especially if the raised menu blocks the sensor’s view of the ceiling. Ultimately, in the physical prototype of anything involved with a light sensor I have to see its sensitivity and if soft shadows will trigger it. 
 
-Think about how your sensor, actuator, and electronics are physically arranged within your prototype. Consider where components need to be placed, what parts move, how the device is supported or enclosed, and how the overall form and aesthetics shape the interaction.
+<img width="650" height="350" alt="Screenshot 2026-10-13 at 7 23 41 PM" src="https://github.com/user-attachments/assets/da340d65-c161-4d20-a282-8f48e592c683" />
 
-Use cardboard, paper, found objects, or other low-fidelity materials to quickly prototype the physical structure before refining your final design.
+Sketch #4: Is there enough room for the arm with the curtain to swing up and not hit anything, how far does the curtain travel for a given arm length? Is the curtain too heavy for the arm connected to the servo? Would the vertical post be hollow inside? How will the servo motor stay up that high inside of the vertical post?
 
-#### Optional Display Feedback: Qwiic OLED
+<img width="650" height="350" alt="Screenshot 2026-10-13 at 7 23 59 PM" src="https://github.com/user-attachments/assets/ef4f8463-a7e1-47cc-80d4-e59af9a722bd" />
 
-Your kit includes these [SparkFun Qwiic OLED screens](https://www.sparkfun.com/products/17153). These use less power than the MiniTFTs you have mounted on the GPIO pins of the Pi, but, more importantly, they can be more flexibly mounted elsewhere on your physical interface. The way you program this display is almost identical to the way you program a  Pi display. Take a look at `oled_test.py` and some more of the [Adafruit examples](https://github.com/adafruit/Adafruit_CircuitPython_SSD1306/tree/master/examples).
+Sketch #5: How tall does the wall have to be to be taller than the standard cup size? 
 
-<p float="left">
-<img src="https://cdn.sparkfun.com//assets/parts/1/6/1/3/5/17153-SparkFun_Qwiic_OLED_Display__0.91_in__128x32_-01.jpg" height="200" />
+The design I choose to prototype is Sketch #1, named The Third Wheel 
 
-</p>
+The Third Wheel is a small figure who sits at the table during a romantic candlelit dinner and never got the hint that he wasn’t invited. Dimming the lights is one of the most familiar signals that a dinner has turned romantic, so I built the interaction around that moment. When the lights go down, he slowly turns his back on the couple, as if to say “I don't need to see this.” When the lights come back up, he turns around again and goes back to enjoying his meal / watching.
+
+I chose this because I feel the interaction has good readability (since a whole-body turn is the clearest reaction from across a table), and because the sensor will stay still in the base while only the figure rotates, so the cable will never twist.
 
 
-As you develop your Feast Automata concept, consider where the sensor and actuator need to be placed, what parts move, how electronics are housed, and how the overall form and aesthetics support the interaction.
+One thing I did observe in my rough prototype was that the figure does cast a shadow, so I attempted to place the sensor in the corner of the base so that it is not hit by the shadow in any part of the figure's rotation, since this 9g motor can only rotate 120 degrees max instead of the 180 my sketch imagined. 
 
-**\*\*\*Draw 5 sketches that explore different physical arrangements for your sensing and actuation.\*\*\***
+<img width="3000" height="2250" alt="IMG_7104" src="https://github.com/user-attachments/assets/d9dc5b80-edd3-4859-8499-b9710f6394e7" />
 
-**\*\*\*What questions do these sketches raise? What do you need to physically prototype to answer them?\*\*\***
+<img width="1536" height="2048" alt="IMG_7105" src="https://github.com/user-attachments/assets/9c2d95bd-e536-4e6a-99ac-fc2bc664b4aa" />
 
-**\*\*\*Pick one design to prototype and explain why.\*\*\***
+<img width="1536" height="2048" alt="IMG_7103" src="https://github.com/user-attachments/assets/74d273af-15f1-4bed-a5f6-4eb3a1c61b13" />
 
-Build a cardboard or other low-fidelity physical prototype of your design.
 
-**\*\*\*Document your rough prototype with photos and/or video.\*\*\***
+
+Proof I was present in class for Part 1: I had to complete the 3d printer / laser cutter safety training with the TAs during part of lab time, and also received a servo motor which was only possible during lab period. 
 
 ---
 
 ## Part 2
 
-Following exploration and reflection from Part 1, complete the "looks like," "works like" and "acts like" prototypes for your design, reiterated below.
+Proof I was present in class for Part 2: I was able to get a new servo motor and materials from the cart, as well as the googly eyes that Professor provided. We didn't do anything in lab except for work on our labs. There was one group that developed a device that produced music (like a DJ) which they were playing around with in class. 
+
+
+### Part E: Build and Integrate
+
+The Third Wheel is a guy who shows up to your candlelit dinner and doesn't take the hint. He stands on a small base at the edge of the table. When the lights go down he turns his back on the couple, and he stays turned away until the lights are all the way back on. Every so often he can't help himself and slowly turns back around to look, then snaps away.
+
+Hardware:
+
+- APDS-9960 light sensor
+- servo motor
+- Raspberry Pi 5
+- Separate USB-C power for the Pi and for the Servo pHAT
+
+All code lives in [third_wheel](third_wheel/).
+
+#### Interaction diagram
+
+
+
+#### Photos and video
+
+
+
+#### Iterations
+
+1. Cardboard prototype. Out of my five sketches I went with the turntable. The figure stands directly on the servo horn and the sensor stays fixed in the base, so there's no linkage and nothing twists.
+2. First version of the code. He turned away when the room got dark and turned back, with a pause halfway, once the light passed a middle threshold. I checked the logic against a simulated sensor before using the hardware to make sure a quick shadow or a light level sitting near the threshold wouldn't set him off.
+3. Second version. I changed it so he stays turned away until the lights are fully back on and added the sneak peeks: a slow turn all the way around, a short stare, then a snap back. If the lights come back on during a peek he just stays facing the table.
+4. Getting the servo running. The script ran but the servo didn't move. I went through three servos and two pHATs before realizing the servo was plugged into the Qwiic port instead of the channel 0 header, and the pHAT didn't have its own USB-C power. After fixing both it worked right away.
+5. 3D printing. I replaced the cardboard with four printed parts (base, lid, turntable and figure), all printed flat without supports. The servo slot in the lid came out a little tight, so I shaved it down until the servo fit and its tabs sat on the ledge underneath. After that everything went together fine.
+
+#### Reflection
+
+The light sensor shaped the whole interaction. Room light changes for everyone at the table at once, so the response had to be slow and deliberate instead of twitchy. I average about 1.6 seconds of readings, so he reacts to the room changing and not to someone's hand passing over him.
+
+Placement mattered more than I expected. The sensor sits on the lid behind the turntable, outside the area he sweeps through, so his body can't shade it while he turns. If it were under him, turning could drop the reading and trigger another turn. The servo's safe range is only 0 to 120 degrees, so I made the figure flat with a front and a back. Once he passes about 90 degrees you're looking at the back of his head, so 120 degrees reads as turned away. The candle also matters: putting it close to the sensor raises the dim reading and shrinks the gap between dim and bright, so I calibrate with the candle on.
+
+For timing, there's a gap between the two thresholds. He turns away when the light drops about halfway from full to dim, and only turns back once it's 85% of the way back to full. That gap stops him from flipping back and forth. What makes it funny is the contrast in speed. He turns away fast, turns back slowly with a pause halfway, and on a sneak peek creeps around for about 5 seconds before snapping away instantly. The peeks happen at random times so you can't predict them. Speeding up the creep kills the suspense, and taking out the pause on the way back makes him look relieved instead of suspicious.
+
+The hardest part was the hardware bring-up, which came down to the wrong connector and missing power. The printed slot being tight was the other lesson: printed holes come out smaller than designed, so next time I'd add more clearance. The most fun part was the sneak peek, since it turned a simple light trigger into something with a personality.
 
 ---
 
-### Part E
+### Part F: Final Documentation
 
-#### Build & Integrate: Sensing + Actuation
+#### Looks like
 
-For Part 2, build the Feast Automata interaction you developed in Part D by connecting sensing/input to physical actuation.
+A small pedestal that sits at the side of a dinner table. The base is a 100 x 100 mm rounded box with THE THIRD WHEEL engraved on the front like a nameplate. The figure is 106 mm tall, wearing a top hat, bow tie and buttoned jacket, with a shocked face engraved on the front. The back of his head is flat and drawn on, since that's what the couple sees when he turns away. The servo and wiring are hidden inside the base, the cables come out a notch in the back, and the light sensor sits in corner guides on the lid behind him.
 
-**Your prototype should:**
-- Use at least one sensing or input device.
-- Use servo-based physical actuation.
-- Connect sensing and actuation into a meaningful interaction around eating, drinking, cooking, serving, or sharing food.
-- Additional inputs, displays, LEDs, buttons, or other outputs are optional extensions.
+3d-printed with glow-in-the-dark PLA at 0.2 mm layers, 15-20% infill, with no supports.
 
-**Document your system with:**
-- Code for your sensing + actuation prototype
-- Photos and/or video of the working prototype in action
-- A simple interaction diagram or sketch showing how sensing and actuation are connected
-- Written reflection: What did you learn about connecting sensing, movement, and physical form? What was fun, surprising, or challenging?
+#### Works like
 
-**Questions to consider:**
-- How does your chosen sensor or input shape the physical response?
-- How does the physical arrangement of the sensor and actuator change the interaction?
-- What thresholds, timing, or movement patterns make the interaction feel clear or playful?
-- What changes when you adjust the sensor placement or servo motion?
-
-Iterate on the sensing, movement, and physical form, and document what you discover.
-
-See encoder_accel_servo_dashboard.py in the Lab 4 folder for an optional example of chaining together three devices.
-
-**`Lab 4/encoder_accel_servo_dashboard.py`**
-
-#### Example Application: Windmill Coaster
-
-Now that you have explored both sensing and actuation, here is a simple example that combines the two.
-
-The **Windmill Coaster** uses a Qwiic distance/proximity sensor to detect when a cup is placed on a coaster. When the cup is detected, a servo motor animates a small windmill by sweeping it back and forth, turning an ordinary action during drinking into a playful physical interaction.
-
-<p align="center">
-    <img src="windmill_coaster11.gif" alt="Windmill Coaster Demo" width="400"/>
-</p>
+The sensor reads overall brightness every 0.2 seconds and the Pi averages the last 8 readings. When the average drops below the dark threshold, the servo turns him 120 degrees away, and he stays there until the average goes above the bright threshold. While he's turned away, a random 10 to 25 second timer triggers a sneak peek. During the peek he takes new readings; if the lights are fully on he stays facing the table, and if not he snaps back away. Every move is limited to the servo's safe range of 0 to 120 degrees.
 
 
-This example demonstrates a simple interaction pipeline:
+#### Acts like
 
-**cup placed → distance sensor detects cup → servo actuates windmill**
-
-Connect the Qwiic distance sensor to the Pi and connect the servo to Channel 0 of the Servo pHAT. Make sure the Servo pHAT is powered through its USB-C connection.
-
-Run the example script:
-
-```bash
-python windmill_coaster.py
-```
-
-The script continuously reads the proximity value from the distance sensor. When the value passes a threshold, the servo begins animating the windmill. When the cup is removed, the servo stops and returns to its resting position.
-
-You may need to adjust `CUP_THRESHOLD` in [`windmill_coaster.py`](windmill_coaster.py) depending on the size of your cup and the physical placement of the sensor. You can run `qwiic_distance.py` first to compare readings with and without a cup.
-
-Use this example as a starting point. Change the sensor, movement, physical form, or dining interaction to create your own Feast Automata variation.
-
-#### Optional Extensions
-
-The following examples are optional resources if you want to add more inputs or outputs to your prototype.
-
-##### Using Multiple Qwiic Buttons: Changing I2C Address (Physically & Digitally)
-
-If you want to use more than one Qwiic Button in your project, you must give each button a unique I2C address. There are two ways to do this:
-
-##### 1. Physically: Soldering Address Jumpers
-
-On the back of the Qwiic Button, you'll find four solder jumpers labeled A0, A1, A2, and A3. By bridging these with solder, you change the I2C address. Only one button on the chain can use the default address (0x6F).
-
-**Address Table:**
-
-| A3 | A2 | A1 | A0 | Address (hex) |
-|----|----|----|----|---------------|
-|  0 |  0 |  0 |  0 |    0x6F       |
-|  0 |  0 |  0 |  1 |    0x6E       |
-|  0 |  0 |  1 |  0 |    0x6D       |
-|  0 |  0 |  1 |  1 |    0x6C       |
-|  0 |  1 |  0 |  0 |    0x6B       |
-|  0 |  1 |  0 |  1 |    0x6A       |
-|  0 |  1 |  1 |  0 |    0x69       |
-|  0 |  1 |  1 |  1 |    0x68       |
-|  1 |  0 |  0 |  0 |    0x67       |
-| ...| ...| ...| ... |     ...      |
-
-For example, if you solder A0 closed (leave A1, A2, A3 open), the address becomes 0x6E.
-
-**Soldering Tips:**
-- Use a small amount of solder to bridge the pads for the jumper you want to close.
-- Only one jumper needs to be closed for each address change (see table above).
-- Power cycle the button after changing the jumper.
-
-##### 2. Digitally: Using Software to Change Address
-
-You can also change the address in software (temporarily or permanently) using the example script `qwiic_button_ex6_changeI2CAddress.py` in the Lab 4 folder. This is useful if you want to reassign addresses without soldering.
-
-Run the script and follow the prompts:
-```bash
-python qwiic_button_ex6_changeI2CAddress.py
-```
-Enter the new address (e.g., 5B for 0x5B) when prompted. Power cycle the button after changing the address.
-
-**Note:** The software method is less foolproof and you need to make sure to keep track of which button has which address!
-
-
-##### Using Multiple Buttons in Code
-
-After setting unique addresses, you can use multiple buttons in your script. See these example scripts in the Lab 4 folder:
-
-- **`qwiic_1_button.py`**: Basic example for reading a single Qwiic Button (default address 0x6F). Run with:
-	```bash
-	python qwiic_1_button.py
-	```
-
-- **`qwiic_button_led_demo.py`**: Demonstrates using two Qwiic Buttons at different addresses (e.g., 0x6F and 0x6E) and controlling their LEDs. Button 1 toggles its own LED; Button 2 toggles both LEDs. Run with:
-	```bash
-	python qwiic_button_led_demo.py
-	```
-
-Here is a minimal code example for two buttons:
-```python
-import qwiic_button
-
-# Default button (0x6F)
-button1 = qwiic_button.QwiicButton()
-# Button with A0 soldered (0x6E)
-button2 = qwiic_button.QwiicButton(0x6E)
-
-button1.begin()
-button2.begin()
-
-while True:
-		if button1.is_button_pressed():
-				print("Button 1 pressed!")
-		if button2.is_button_pressed():
-				print("Button 2 pressed!")
-```
-
-For more details, see the [Qwiic Button Hookup Guide](https://learn.sparkfun.com/tutorials/qwiic-button-hookup-guide/all#i2c-address).
+1. Dinner starts with the lights on. He faces the table and watches.
+2. The couple dims the lights and lights the candle. About a second later he turns his back on them.
+3. He stays turned away while they eat and talk.
+4. Every 10 to 25 seconds he slowly turns all the way back around, stares for a second, and snaps away.
+5. When the lights come all the way back up, he turns back slowly, pauses halfway, then faces the table again.
+6. If the lights come back on in the middle of a peek, he doesn't snap away. He just stays there like nothing happened.
 
 ---
 
-##### PCF8574 GPIO Expander: Add More Pins Over I²C
+### User Testing
 
-Sometimes your Pi’s header GPIO pins are already full (e.g., with a display or HAT). That’s where an I²C GPIO expander comes in handy.
+Setup: A couple's candelight dinner setting was simulated. The device sat at one end of a small dinner table with a candle in the middle and the testers sitting down. The room lights started on.
 
-We use the Adafruit PCF8574 I²C GPIO Expander, which gives you 8 extra digital pins over I²C. It’s a great way to prototype with LEDs, buttons, or other components on the breadboard without worrying about pin conflicts—similar to how Arduino users often expand their pinouts when prototyping physical interactions.
+#### Tester 1
 
-**Why is this useful?**
-- You only need two wires (I²C: SDA + SCL) to unlock 8 extra GPIOs.
-- It integrates smoothly with CircuitPython and Blinka.
-- It allows a clean prototyping workflow when the Pi’s 40-pin header is already occupied by displays, HATs, or sensors.
-- Makes breadboard setups feel more like an Arduino-style prototyping environment where it’s easy to wire up interaction elements.
+- Noticed the figure facing the table
+- Turned the lights off with the candle still lit
+- Figure turned away about a second later, tester laughed
+- Kept watching and caught a full sneak peek, laughed again at the snap back
+- Blew out the candle to see if the figure would react
+- No change, figure stayed turned away
 
-**Demo Script:** `Lab 4/gpio_expander.py`
+Feedback:
 
-<p align="center">
-    <img src="gpio_leds.gif" alt="GPIO Expander LED Demo" width="400"/>
-</p>
+- Interaction was easy to follow and worked smoothly
+- Blowing out the candle should do something
+- Suggested the figure stop peeking and stay turned away until the lights come back on
 
-We connected 8 LEDs (through 220 Ω resistors) to the expander and ran a little light show. The script cycles through three patterns:
-- Chase (one LED at a time, left to right)
-- Knight Rider (back-and-forth sweep)
-- Disco (random blink chaos)
+#### Tester 2
 
-Every few runs, the script swaps to the next pattern automatically:
-```bash
-python gpio_expander.py
-```
+- Didn't notice the figure at first
+- Was looking at the candle when the lights dimmed, missed the first turn
+- Caught a sneak peek halfway through about 15 seconds later
+- Laughed at the snap back and said "wait, did he just look at us?"
+- Raised the lights halfway to see what would happen, figure didn't turn back
+- Assumed it was broken until the lights went all the way up and the figure turned around
 
-This is a playful way to visualize how the expander works, but the same technique applies if you wanted to prototype buttons, switches, or other interaction elements. It’s a lightweight, flexible addition to your prototyping toolkit.
+Feedback:
 
----
+- First turn away is easy to miss
+- Raising the lights partway made it look broken
+- Suggested a small plate with a fork and knife in front of the figure so it feels like he's eating with them, not just watching
 
+#### Changes for the next version
 
----
-
----
-
-### Part F
-
-### Final Documentation
-
-Document all the prototypes and iterations you have designed and worked on! Again, deliverables for this lab are writings, sketches, photos, and videos that show what your prototype:
-* "Looks like": shows how the device should look, feel, sit, weigh, etc.
-* "Works like": shows what the device can do
-* "Acts like": shows how a person would interact with the device
-
----
-
-## Deliverables \& Submission for Lab 4
-
-The deliverables for this lab are, writings, sketches, photos, and videos that show what your prototype:
-* "Looks like": shows how the device should look, feel, sit, weigh, etc.
-* "Works like": shows what the device can do.
-* "Acts like": shows how a person would interact with the device.
+- Lower threshold for the candle going out that stops the sneak peeks
+- Small printed plate and utensils in front of the figure
+- A reaction to the lights being raised partway
+- A bit more clearance on the servo slot in the lid
 
 For submission, the readme.md page for this lab should be edited to include the work you have done:
 * Upload any materials that explain what you did, into your lab 4 repository, and link them in your lab 4 readme.md.
