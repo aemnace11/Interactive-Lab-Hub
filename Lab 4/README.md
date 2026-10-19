@@ -106,6 +106,7 @@ The parts were 3D printed from these files: [base.stl](base.stl), [lid.stl](lid.
 
 #### Interaction diagram
 
+<img width="3724" height="675" alt="IMG_7148" src="https://github.com/user-attachments/assets/b1db5cf7-308f-4057-8e21-b7d0ff85edaa" />
 
 
 #### Photos and video
