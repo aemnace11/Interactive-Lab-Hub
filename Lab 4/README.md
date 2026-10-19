@@ -114,6 +114,8 @@ The parts were 3D printed from these files: [base.stl](base.stl), [lid.stl](lid.
 
 <img width="4284" height="5712" alt="IMG_7143" src="https://github.com/user-attachments/assets/301be6f7-a2fd-47ad-b3b1-d82214c5e887" />
 
+[![The Third Wheel demo](https://img.youtube.com/vi/Pm3SptkGE5Q/0.jpg)](https://youtu.be/Pm3SptkGE5Q)
+
 #### Iterations
 
 1. Cardboard prototype. Out of my five sketches I went with the turntable. The figure stands directly on the servo horn and the sensor stays fixed in the base, so there's no linkage and nothing twists.
