@@ -1,6 +1,7 @@
 # Observant Systems: Overnight Sensation
 
 **NAMES OF COLLABORATORS HERE**
+Achilles Emnace
 
 For lab this week, we focus on creating interactive systems that can detect and respond to events or stimuli in the environment of the Pi, like the Boat Detector we mentioned in lecture. 
 Your **observant device** could, for example, count items, find objects, recognize an event or continuously monitor a room.
@@ -52,61 +53,15 @@ This readme.md page in your own repository should be edited to include the work 
 # Part 1
 
 ## Part A. 
-### Set up your Pi for on-device AI
-
-Create a virtual environment and install the requirements. They include `ultralytics` (YOLO), which pulls in torch, so this takes a while:
-
-```
-pi@raspberrypi:~$ cd Interactive-Lab-Hub/Lab\ 5
-pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python3 -m venv .venv
-pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ source .venv/bin/activate
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ pip install -r requirements.txt
-```
-
-As in Lab 3, [`uv`](https://docs.astral.sh/uv/) is a much faster drop-in for `pip`: `pip install uv && uv pip install -r requirements.txt`.
-
-### YOLO: download the nano model and export it for the Pi
-
-We use the nano model of [YOLO26](https://docs.ultralytics.com/models/yolo26/), exported once to NCNN, the format that runs fastest on the Pi. This downloads the weights, so you need internet:
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python -c "from ultralytics import YOLO; YOLO('yolo26n.pt').export(format='ncnn')"
-```
-
-Test it on an image from the internet. `project=runs` keeps the output in this folder; without it, ultralytics writes to a `runs/` folder at the top of your git repo, where you will not think to look.
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ yolo predict model=yolo26n_ncnn_model source=https://ultralytics.com/images/bus.jpg project=runs
-```
-
-The result is in `runs/predict/bus.jpg`: boxes around the people and the bus.
-
-Now a photo of your own. Plug in the webcam and take one with `snap.py` (`--delay 3` gives you three seconds to get into the frame), or copy a photo from your phone to the Pi with `scp`. Then run the same command on it:
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python snap.py --delay 3
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ yolo predict model=yolo26n_ncnn_model source=snap.jpg project=runs
-```
-
-Every run gets its own numbered folder, so this one is in `runs/predict2/snap.jpg`; the command prints where it saved. Keep `snap.jpg`, you will show it to Qwen in Part D.
-
-### Ollama: install it and pull Qwen
-
-[Ollama](https://ollama.com) runs language models locally. Nothing leaves the Pi: no API key, no internet after the download.
-
-```
-pi@raspberrypi:~ $ curl -fsSL https://ollama.com/install.sh | sh
-pi@raspberrypi:~ $ ollama pull qwen3.5:0.8b
-pi@raspberrypi:~ $ ollama pull qwen3:0.6b
-pi@raspberrypi:~ $ ollama list
-```
-
-| model | download | what it does |
-|---|---|---|
-| `qwen3.5:0.8b` | ~1.3 GB | text **and images**; the one we use in this lab |
-| `qwen3:0.6b` | ~0.5 GB | text only, smaller and faster (~16 tokens/s on a Pi 5) |
 
 \*\*\***Include a screenshot of `ollama list` showing your models, and the `bus.jpg` result and your own photo with their boxes.**\*\*\*
+
+<img width="572" height="76" alt="Screenshot 2026-10-24 at 11 37 20 AM" src="https://github.com/user-attachments/assets/894321c0-76e8-47a3-b35c-3c662cdd3d79" />
+
+<img width="544" height="516" alt="Screenshot 2026-10-24 at 12 02 19 PM" src="https://github.com/user-attachments/assets/071a7b0d-fc76-4270-b583-78fee46960d5" />
+
+<img width="450" height="709" alt="Screenshot 2026-10-24 at 12 02 40 PM" src="https://github.com/user-attachments/assets/bbac649c-a977-4822-aa7e-23dbe8fa44ba" />
+
 
 
 ## Part B. 
