@@ -1,7 +1,6 @@
 # Observant Systems: Overnight Sensation
 
-**NAMES OF COLLABORATORS HERE**
-Achilles Emnace
+**Achilles Emnace**
 
 For lab this week, we focus on creating interactive systems that can detect and respond to events or stimuli in the environment of the Pi, like the Boat Detector we mentioned in lecture. 
 Your **observant device** could, for example, count items, find objects, recognize an event or continuously monitor a room.
@@ -56,7 +55,7 @@ This readme.md page in your own repository should be edited to include the work 
 
 \*\*\***Include a screenshot of `ollama list` showing your models, and the `bus.jpg` result and your own photo with their boxes.**\*\*\*
 
-<img width="572" height="76" alt="Screenshot 2026-10-24 at 11 37 20 AM" src="https://github.com/user-attachments/assets/894321c0-76e8-47a3-b35c-3c662cdd3d79" />
+<img width="570" height="60" alt="Screenshot 2026-10-24 at 12 28 26 PM" src="https://github.com/user-attachments/assets/bbd19581-a532-4876-b957-fe678d0e6c61" />
 
 <img width="544" height="516" alt="Screenshot 2026-10-24 at 12 02 19 PM" src="https://github.com/user-attachments/assets/071a7b0d-fc76-4270-b583-78fee46960d5" />
 
