@@ -136,6 +136,51 @@ Time it took: 9.6 s
 
 \*\*\***Document the pipeline: at least three runs with the log, the question, Qwen's answer, and whether it was right. Include one case where Qwen got it wrong, and say what you changed in the interpreter and why.**\*\*\*
 
+Run 1: walking through the frame
+
+13:19:04 1 person(s) at center/close
+13:19:06 nobody
+13:19:13 1 person(s) at right/far
+13:19:13 1 person(s) at center/far
+13:19:14 1 person(s) at left/close
+13:19:15 nobody
+13:19:22 1 person(s) at left/far
+13:19:23 1 person(s) at left/close
+13:19:24 1 person(s) at center/close
+
+Qwen (22.0 s): “There were four distinct individuals present throughout the 26-second observation period. They moved around the room: one person remained stationary on the left side, while others shifted between the center and right areas of the room...”
+
+What actually happened: I started in the frame, left, walked across from right to left, then came back in. The log captured this well. You can follow me leaving, crossing and returning from the readings alone. The mistake was Qwen’s. It treated each change in reading as a different person and reported four people when there was only one. The interpreter only says “1 person(s)” per reading and never says it’s the same person as before, so the model filled that gap with a wrong guess.
+
+Run 2: an empty room
+
+13:21:32 nobody
+
+Qwen (8.9 s): “The log indicates that no one was present in the room during this 15-second observation period. There were no people visible or recorded, and no activity occurred to change the reading...”
+
+This was correct. I stayed out of frame the whole time, the log had a single nobody line, and Qwen didn’t invent any events. For an overnight device, it matters that it can report a night where nothing happened without making something up.
+
+Run 3: trying to confuse it
+
+13:23:46 nobody
+13:23:54 1 person(s) at left/far
+13:24:00 nobody
+13:24:00 1 person(s) at left/far
+13:24:02 nobody
+13:24:07 1 person(s) at left/close
+13:24:08 1 person(s) at center/close
+13:24:08 nobody
+13:24:09 1 person(s) at right/close
+13:24:10 1 person(s) at center/close
+13:24:10 1 person(s) at center/far
+13:24:11 1 person(s) at center/close
+13:24:11 1 person(s) at left/close
+13:24:13 1 person(s) at left/far
+
+Qwen (12.2 s): “There are 4 distinct people visible in the room throughout the 30-second period. They are all located near the edges of the room (left or right) and appear to be standing still...”
+
+Both stages failed here. When I sat down in a chair and turned my back to the camera, YOLO lost me and logged nobody even though I was still in the room. When I put a water bottle in the frame, YOLO detected it as a person. The readings also flickered, sometimes switching between nobody and a person within the same second. Qwen again counted four people and described them as standing still, which matched neither the log nor reality.
+
 ---
 
 # Lab 5 Part 2: Overnight Sensation
