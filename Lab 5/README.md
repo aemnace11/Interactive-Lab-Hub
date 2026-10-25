@@ -103,6 +103,13 @@ The three runs where YOLO saw a person who wasn’t there (the default run, the 
 
 \*\*\***Include a screenshot or short video of the hand pose demo, and write how you might use face, hand or body pose tracking in your observant system.**\*\*\*
 
+<img width="546" height="482" alt="Screenshot 2026-10-25 at 12 57 12 PM" src="https://github.com/user-attachments/assets/d57b4a8f-06c9-4f8f-8c84-f8706ac53cf2" />
+
+<img width="544" height="479" alt="Screenshot 2026-10-25 at 12 57 32 PM" src="https://github.com/user-attachments/assets/d6526e66-011b-4531-b4a6-c97df7d07dd1" />
+
+<img width="544" height="478" alt="Screenshot 2026-10-25 at 12 57 22 PM" src="https://github.com/user-attachments/assets/1c53d038-c771-46cb-8fa6-d4d4a545b3bc" />
+
+For an observant system, I’d use hand tracking for the interaction with the device and body pose for the observation itself. A simple gesture like the Quiet Coyote or a thumbs up could work as a hands-free command, like telling the device to start or stop watching, which is useful when you don’t want to touch anything or talk to it. Body pose could go further than YOLO’s “a person is here” by describing what the person is doing, like whether they’re sitting, standing, lying down or reaching for something, by comparing the positions of the shoulders, hips and knees. Face tracking could tell whether someone is looking at the device, so it only responds when you’re actually paying attention to it. 
 
 ## Part D. 
 
