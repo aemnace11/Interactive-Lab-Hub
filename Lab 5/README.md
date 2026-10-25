@@ -181,6 +181,8 @@ Qwen (12.2 s): “There are 4 distinct people visible in the room throughout the
 
 Both stages failed here. When I sat down in a chair and turned my back to the camera, YOLO lost me and logged nobody even though I was still in the room. When I put a water bottle in the frame, YOLO detected it as a person. The readings also flickered, sometimes switching between nobody and a person within the same second. Qwen again counted four people and described them as standing still, which matched neither the log nor reality.
 
+I changed one thing in the interpreter, now I only count a person if YOLO’s confidence is at least 0.5, because in my third run a water bottle was logged as a person and in Part B a corner of my couch was detected at about 30%. The higher threshold might miss me in a hard pose, but a log full of people who aren’t there is worse for a device that runs unattended.
+
 ---
 
 # Lab 5 Part 2: Overnight Sensation
