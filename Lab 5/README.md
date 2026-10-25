@@ -115,6 +115,22 @@ For an observant system, I’d use hand tracking for the interaction with the de
 
 \*\*\***Ask Qwen three questions a bedside device might need to answer. Paste the questions, the answers and how long each took. Try one of them with `qwen3:0.6b` and compare.**\*\*\*
 
+Q: Here is a log from a bedside device: 23:40 person in bed. 02:15 nobody. 02:22 person in bed. 07:05 nobody. How long was the person out of bed during the night?
+A: The person was out of bed for four hours, from 02:15 to 06:45.
+Time it took: 26.3 s
+
+Q: Here is a log from a bedside device: 00:10 person in bed. 03:30 nobody. 03:45 person in bed. 05:00 nobody. 05:20 person in bed. 08:00 nobody. How many times did the person get up during the night?
+A: The person got up three times, once at 03:45 and again at 05:20.
+Time it took: 4.1 s
+
+Q: Here is a log from a bedside device: 22:50 person in bed. 06:30 nobody. What time did the person go to bed and what time did they wake up?
+A: The person went to bed at 22:50 and woke up at 06:30.
+Time it took: 3.4 s
+
+Comparison with qwen3:0.6b (same as second question):
+Q: Here is a log from a bedside device: 00:10 person in bed. 03:30 nobody. 03:45 person in bed. 05:00 nobody. 05:20 person in bed. 08:00 nobody. How many times did the person get up during the night?
+A: The person got up 0 times during the night.
+Time it took: 9.6 s
 
 ## Part E. 
 
