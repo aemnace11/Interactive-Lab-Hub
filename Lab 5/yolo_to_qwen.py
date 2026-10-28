@@ -28,7 +28,7 @@ import requests
 from ultralytics import YOLO
 
 model = YOLO("yolo26n_ncnn_model")
-
+MIN_CONF = 0.5 
 
 def interpret(r):
     """The interpreter: turn one YOLO result into one short reading in words.
@@ -42,6 +42,8 @@ def interpret(r):
         name = model.names[int(box.cls)]
         if name != "person":
             others.add(name)                 # only with --all; see watch()
+            continue
+        if float(box.conf) < MIN_CONF:       # skip weak person detections
             continue
         x1, y1, x2, y2 = box.xyxy[0].tolist()
         cx = (x1 + x2) / 2

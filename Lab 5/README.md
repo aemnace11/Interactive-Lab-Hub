@@ -1,6 +1,6 @@
 # Observant Systems: Overnight Sensation
 
-**NAMES OF COLLABORATORS HERE**
+**Achilles Emnace**
 
 For lab this week, we focus on creating interactive systems that can detect and respond to events or stimuli in the environment of the Pi, like the Boat Detector we mentioned in lecture. 
 Your **observant device** could, for example, count items, find objects, recognize an event or continuously monitor a room.
@@ -52,193 +52,136 @@ This readme.md page in your own repository should be edited to include the work 
 # Part 1
 
 ## Part A. 
-### Set up your Pi for on-device AI
-
-Create a virtual environment and install the requirements. They include `ultralytics` (YOLO), which pulls in torch, so this takes a while:
-
-```
-pi@raspberrypi:~$ cd Interactive-Lab-Hub/Lab\ 5
-pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python3 -m venv .venv
-pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ source .venv/bin/activate
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ pip install -r requirements.txt
-```
-
-As in Lab 3, [`uv`](https://docs.astral.sh/uv/) is a much faster drop-in for `pip`: `pip install uv && uv pip install -r requirements.txt`.
-
-### YOLO: download the nano model and export it for the Pi
-
-We use the nano model of [YOLO26](https://docs.ultralytics.com/models/yolo26/), exported once to NCNN, the format that runs fastest on the Pi. This downloads the weights, so you need internet:
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python -c "from ultralytics import YOLO; YOLO('yolo26n.pt').export(format='ncnn')"
-```
-
-Test it on an image from the internet. `project=runs` keeps the output in this folder; without it, ultralytics writes to a `runs/` folder at the top of your git repo, where you will not think to look.
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ yolo predict model=yolo26n_ncnn_model source=https://ultralytics.com/images/bus.jpg project=runs
-```
-
-The result is in `runs/predict/bus.jpg`: boxes around the people and the bus.
-
-Now a photo of your own. Plug in the webcam and take one with `snap.py` (`--delay 3` gives you three seconds to get into the frame), or copy a photo from your phone to the Pi with `scp`. Then run the same command on it:
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python snap.py --delay 3
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ yolo predict model=yolo26n_ncnn_model source=snap.jpg project=runs
-```
-
-Every run gets its own numbered folder, so this one is in `runs/predict2/snap.jpg`; the command prints where it saved. Keep `snap.jpg`, you will show it to Qwen in Part D.
-
-### Ollama: install it and pull Qwen
-
-[Ollama](https://ollama.com) runs language models locally. Nothing leaves the Pi: no API key, no internet after the download.
-
-```
-pi@raspberrypi:~ $ curl -fsSL https://ollama.com/install.sh | sh
-pi@raspberrypi:~ $ ollama pull qwen3.5:0.8b
-pi@raspberrypi:~ $ ollama pull qwen3:0.6b
-pi@raspberrypi:~ $ ollama list
-```
-
-| model | download | what it does |
-|---|---|---|
-| `qwen3.5:0.8b` | ~1.3 GB | text **and images**; the one we use in this lab |
-| `qwen3:0.6b` | ~0.5 GB | text only, smaller and faster (~16 tokens/s on a Pi 5) |
 
 \*\*\***Include a screenshot of `ollama list` showing your models, and the `bus.jpg` result and your own photo with their boxes.**\*\*\*
 
+<img width="570" height="60" alt="Screenshot 2026-10-24 at 12 28 26 PM" src="https://github.com/user-attachments/assets/bbd19581-a532-4876-b957-fe678d0e6c61" />
+
+<img width="544" height="516" alt="Screenshot 2026-10-24 at 12 02 19 PM" src="https://github.com/user-attachments/assets/071a7b0d-fc76-4270-b583-78fee46960d5" />
+
+<img width="450" height="709" alt="Screenshot 2026-10-24 at 12 02 40 PM" src="https://github.com/user-attachments/assets/bbac649c-a977-4822-aa7e-23dbe8fa44ba" />
+
+
 
 ## Part B. 
-### See: recognize people in real time with YOLO
-
-YOLO is an *object detector*: it finds every person, cup, cat and so on (the 80 [COCO](https://cocodataset.org/) classes), draws a box around each, and gives a confidence. For an observant system that is exactly what you want: *how many*, *where*, *how sure*.
-
-Connect your webcam, connect to your Pi through **VNC** (the script opens a window), and run the person detector. Read `yolo_person.py` first; the loop at the bottom is the whole idea.
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python yolo_person.py
-```
-
-While it runs, walk in and out of the frame, sit down, turn your back, turn the lights off, hold up a photo of a person on your phone. Watch the confidence number on the box change with each.
-
-Then press q to quit and run it again with a flag. Each one changes a single thing:
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python yolo_person.py --conf 0.2     # lower the bar: see what the model is unsure about
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python yolo_person.py --conf 0.7     # raise the bar: see what you lose
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python yolo_person.py --all          # all 80 classes, not only people: what else is on your desk, and what does it get wrong?
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python yolo_person.py --headless     # no window, only the printed readings: how it runs over ssh, and at night
-```
 
 \*\*\***Include a short video or screenshots of the person detection. Write down three situations where it did not see you, or saw a person who was not there, and what you think the cause was.**\*\*\*
 
+Normal: 
+
+<img width="548" height="481" alt="Screenshot 2026-10-25 at 12 21 05 PM" src="https://github.com/user-attachments/assets/66ce7b55-902b-4713-a822-7f2ab33f9bfd" />
+
+<img width="550" height="479" alt="Screenshot 2026-10-25 at 12 20 25 PM" src="https://github.com/user-attachments/assets/98a126c9-3417-40b3-b1c0-7f4491a18675" />
+
+<img width="549" height="477" alt="Screenshot 2026-10-25 at 12 19 54 PM" src="https://github.com/user-attachments/assets/af0c0f36-5dee-44ca-9970-3a6e016df92b" />
+
+20% confidence:
+
+<img width="548" height="481" alt="Screenshot 2026-10-25 at 12 23 29 PM" src="https://github.com/user-attachments/assets/65a30284-cdd8-4602-888b-56e65a51d35f" />
+
+<img width="548" height="483" alt="Screenshot 2026-10-25 at 12 22 42 PM" src="https://github.com/user-attachments/assets/b6d0e28a-cf69-4fa3-98d0-f5bc99c27c1c" />
+
+70% confidence: 
+
+<img width="546" height="479" alt="Screenshot 2026-10-25 at 12 25 45 PM" src="https://github.com/user-attachments/assets/86ed3beb-61bc-4ce0-9356-c3f6c7ce43f9" />
+
+<img width="545" height="480" alt="Screenshot 2026-10-25 at 12 26 11 PM" src="https://github.com/user-attachments/assets/25091b4f-6f79-45f1-9bb9-eb64dde71393" />
+
+All classes: 
+
+<img width="546" height="479" alt="Screenshot 2026-10-25 at 12 26 48 PM" src="https://github.com/user-attachments/assets/80a73235-e47a-46f0-b029-783303a59921" />
+
+<img width="548" height="479" alt="Screenshot 2026-10-25 at 12 27 32 PM" src="https://github.com/user-attachments/assets/7d59958b-2f81-48c4-afa9-721571cff778" />
+
+Headless: 
+
+<img width="550" height="411" alt="Screenshot 2026-10-25 at 12 28 44 PM" src="https://github.com/user-attachments/assets/ee05abb0-68cd-4b1f-adbf-5ca02dd42936" />
+
+The three runs where YOLO saw a person who wasn’t there (the default run, the --conf 0.2 run and the --headless run), the mistake was the same. It detected a person at about 30% confidence in a small corner of my light brown couch where a pillow was sitting. In the headless run it showed up as a printed “person” reading instead of a box, so the false positive doesn’t depend on the display. My guess is that the couch’s color is close to skin tone and the pillow’s rounded shape reads like a head or shoulder, so a small patch of the frame looks enough like part of a person sitting on the couch. Couches also show up next to people constantly in the COCO training images, so the model has probably learned to expect a person around couch-shaped objects. The detection never got much above 40%, so raising the threshold (like the --conf 0.7 run) filters it out, but at the cost of missing real people in harder poses or lighting.
 
 ## Part C. 
-### See more: hands and pose with MediaPipe
-
-YOLO tells you that a person is there. Google's [MediaPipe](https://mediapipe.dev/) tells you what their hands and body are doing: face, hand and body pose detection, fast on the Pi.
-
-![Media pipe](Readme_files/mp.gif)
-
-The demo plays a looping audio file, so make the helper script executable first:
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ chmod +x loop_audio.sh
-```
-
-Connect your webcam, connect to your Pi through **VNC**, and run the hand pose script:
-(***it will not work if you use ssh from your laptop***)
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python hand_pose.py
-```
-
-Try the two main features of this script: 1) pinching for percentage control (the thumb-to-index distance sets the volume), and 2) "[Quiet Coyote](https://www.youtube.com/watch?v=qsKlNVpY7zg)" for instant percentage setting (the gesture mutes it). Notice how this example uses hardcoded positions and relates those positions with a desired set of events, in `hand_pose.py`: a hand is 21 landmark coordinates, and an *event* is a rule you write over them. That is the same job as `interpret()` in Part E.
-
-Consider how you might use this position based approach to create an interaction, and write how you might use it on either face, hand or body pose tracking.
 
 \*\*\***Include a screenshot or short video of the hand pose demo, and write how you might use face, hand or body pose tracking in your observant system.**\*\*\*
 
+<img width="546" height="482" alt="Screenshot 2026-10-25 at 12 57 12 PM" src="https://github.com/user-attachments/assets/d57b4a8f-06c9-4f8f-8c84-f8706ac53cf2" />
+
+<img width="544" height="479" alt="Screenshot 2026-10-25 at 12 57 32 PM" src="https://github.com/user-attachments/assets/d6526e66-011b-4531-b4a6-c97df7d07dd1" />
+
+<img width="544" height="478" alt="Screenshot 2026-10-25 at 12 57 22 PM" src="https://github.com/user-attachments/assets/1c53d038-c771-46cb-8fa6-d4d4a545b3bc" />
+
+For an observant system, I’d use hand tracking for the interaction with the device and body pose for the observation itself. A simple gesture like the Quiet Coyote or a thumbs up could work as a hands-free command, like telling the device to start or stop watching, which is useful when you don’t want to touch anything or talk to it. Body pose could go further than YOLO’s “a person is here” by describing what the person is doing, like whether they’re sitting, standing, lying down or reaching for something, by comparing the positions of the shoulders, hips and knees. Face tracking could tell whether someone is looking at the device, so it only responds when you’re actually paying attention to it. 
 
 ## Part D. 
-### Reason: run Qwen on the Pi with Ollama
-
-Talk to the model in the terminal first. Qwen3 models "think" before they answer, which is slow on a Pi, so turn it off. Then ask about something you can check:
-
-```
-pi@raspberrypi:~ $ ollama run qwen3.5:0.8b
->>> /set nothink
->>> Tell me a bit about the history of Roosevelt Island. Three sentences.
->>> /bye
-```
-
-Roosevelt Island is a good first question because you know the ground truth: it was Blackwell's Island, then Welfare Island, got its current name in 1973, and Cornell Tech opened on it in 2017. Count how many of the model's facts are true.
-
-From Python it is a dozen lines with `requests`; `ask_qwen.py` is that script. It turns thinking off, tells the model to answer in at most three sentences, and cuts it off after 120 tokens (`--max-tokens` changes that), because a small model left alone writes an essay. Read it, then run:
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python ask_qwen.py "Tell me a bit about the history of Roosevelt Island."
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python ask_qwen.py --model qwen3:0.6b "Tell me a bit about the history of Roosevelt Island."
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python ask_qwen.py --image snap.jpg "What is in this photo?"
-```
-
-Four things in the [Ollama API](https://github.com/ollama/ollama/blob/main/docs/api.md) worth knowing:
-
-* `think: false` skips the reasoning trace. Always, on a Pi. `ask_qwen.py` sends it on every request; `--think` turns the trace back on for one question, so you can see what you are skipping and how long it takes.
-* `options.num_predict` is a hard cap on the answer length, in tokens. The model does not know about it, so it may stop mid-sentence; the `system` prompt is what asks it to be brief in the first place. `ask_qwen.py` uses both.
-* `format` makes the model answer as JSON with the fields you name (`--json`). Handy when a display or a servo has to read the answer.
-* `images` sends a photo along with the prompt (`--image snap.jpg`, the photo from Part A). `qwen3.5:0.8b` can look at pictures.
-
-A 0.8B model is slow and sometimes wrong. It will invent events that are not in the data and agree with a wrong premise. Give it the data, keep its job narrow, and decide what the device does when the model is unsure.
 
 \*\*\***Ask Qwen three questions a bedside device might need to answer. Paste the questions, the answers and how long each took. Try one of them with `qwen3:0.6b` and compare.**\*\*\*
 
+Q: Here is a log from a bedside device: 23:40 person in bed. 02:15 nobody. 02:22 person in bed. 07:05 nobody. How long was the person out of bed during the night?
+A: The person was out of bed for four hours, from 02:15 to 06:45.
+Time it took: 26.3 s
+
+Q: Here is a log from a bedside device: 00:10 person in bed. 03:30 nobody. 03:45 person in bed. 05:00 nobody. 05:20 person in bed. 08:00 nobody. How many times did the person get up during the night?
+A: The person got up three times, once at 03:45 and again at 05:20.
+Time it took: 4.1 s
+
+Q: Here is a log from a bedside device: 22:50 person in bed. 06:30 nobody. What time did the person go to bed and what time did they wake up?
+A: The person went to bed at 22:50 and woke up at 06:30.
+Time it took: 3.4 s
+
+Comparison with qwen3:0.6b (same as second question):
+Q: Here is a log from a bedside device: 00:10 person in bed. 03:30 nobody. 03:45 person in bed. 05:00 nobody. 05:20 person in bed. 08:00 nobody. How many times did the person get up during the night?
+A: The person got up 0 times during the night.
+Time it took: 9.6 s
 
 ## Part E. 
-### Connect: from YOLO readings to Qwen reasoning
-
-An observant system is a pipeline: a **detector** turns pixels into boxes, an **interpreter** turns boxes into readings in words ("one person, left, close"), the readings pile up in a **log**, and a **reasoner** answers a question about the log. The language model never sees pixels, only the words you chose in the interpreter. That makes the interpreter the most important design decision in the system.
-
-`yolo_to_qwen.py` is the pipeline in one file, one function per stage. Read it before you run it:
-
-* `interpret(r)` is the interpreter. It takes one YOLO result and returns one reading. A person is *left*, *center* or *right* by which third of the frame the middle of their box is in, and *close* if the box is taller than 60% of the frame, *far* otherwise. The reading is a string like `1 person(s) at center/close`, or `nobody`. Fifteen lines, and they decide everything the model can know.
-* `watch(seconds)` is the detector and the log. Twice a second it reads a frame, runs YOLO on it and calls `interpret()`. A time-stamped reading goes into the log **only when it differs from the previous one**, so a minute of sitting still is one line, not 120.
-* `ask(log, question)` is the reasoner. It pastes the log and your question into one prompt, tells Qwen to answer in at most three sentences using only what is in the log, and sends it to Ollama with thinking off.
-
-Run it through VNC and a window opens with YOLO's boxes, the current reading and the seconds left. Press q to stop watching early. Over plain ssh add `--headless` and you get the same thing minus the window.
-
-```
-(.venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 5 $ python yolo_to_qwen.py
-```
-
-It watches for a minute, saves the log to `watch_log.txt` and asks Qwen the default question. The terminal looks something like this:
-
-```
-14:02:11 nobody
-14:02:19 1 person(s) at right/far
-14:02:24 1 person(s) at center/close
-14:02:51 nobody
-
-4 lines saved to watch_log.txt
-asking Qwen...
-
-Qwen (18.4 s):
-One person came in from the right, moved close to the camera, and left after about half a minute. ...
-```
-
-Those four lines are the whole of what Qwen knows about the minute. If YOLO lost you for one frame, the log says you left and came back, and the report will say so too.
-
-Run it with a partner: have them walk in, sit down, leave. Compare the log with what Qwen concluded. Then change one thing at a time:
-
-* **The question.** `--question "Did anyone leave?"`, `--question "Should I be worried?"`, `--question "Write one sentence a sleepy person would want to hear."` Same log, different job for the reasoner.
-* **The interpreter.** Edit `interpret()`: drop the positions, add "standing" versus "sitting" (a sitting person's box is shorter and squarer), count only people who are close. Qwen's answers change because its world changed.
-* **The other objects.** By default the detector is told to look for people only. With `--all` it reports all 80 classes and the interpreter adds them to the reading, as in `1 person(s) at center/close; also chair, cup`. Look closely at what it names: at 320 pixels a white chair, a bucket or a sink is a "toilet" often enough, and Qwen will faithfully report the toilet in your bedroom. Deciding which objects deserve a mention is interpreter work.
-* **The log.** Every run saves `watch_log.txt`. Edit it so it contradicts itself and feed it back with `--log watch_log.txt`: the camera is skipped and Qwen reasons over your edited file. Does it notice?
-* **The format.** `--json` gets `{"people": 1, "activity": "...", "unusual": false}` back, which is what you will want in Part 2 to drive a display or a sound.
-* **The timing.** `--seconds 300` watches longer. `--every` logs every reading instead of only changes, so the log grows to hundreds of lines and Qwen has to find the changes itself. See whether it still can.
 
 \*\*\***Document the pipeline: at least three runs with the log, the question, Qwen's answer, and whether it was right. Include one case where Qwen got it wrong, and say what you changed in the interpreter and why.**\*\*\*
+
+Run 1: walking through the frame
+
+13:19:04 1 person(s) at center/close
+13:19:06 nobody
+13:19:13 1 person(s) at right/far
+13:19:13 1 person(s) at center/far
+13:19:14 1 person(s) at left/close
+13:19:15 nobody
+13:19:22 1 person(s) at left/far
+13:19:23 1 person(s) at left/close
+13:19:24 1 person(s) at center/close
+
+Qwen (22.0 s): “There were four distinct individuals present throughout the 26-second observation period. They moved around the room: one person remained stationary on the left side, while others shifted between the center and right areas of the room...”
+
+What actually happened: I started in the frame, left, walked across from right to left, then came back in. The log captured this well. You can follow me leaving, crossing and returning from the readings alone. The mistake was Qwen’s. It treated each change in reading as a different person and reported four people when there was only one. The interpreter only says “1 person(s)” per reading and never says it’s the same person as before, so the model filled that gap with a wrong guess.
+
+Run 2: an empty room
+
+13:21:32 nobody
+
+Qwen (8.9 s): “The log indicates that no one was present in the room during this 15-second observation period. There were no people visible or recorded, and no activity occurred to change the reading...”
+
+This was correct. I stayed out of frame the whole time, the log had a single nobody line, and Qwen didn’t invent any events. For an overnight device, it matters that it can report a night where nothing happened without making something up.
+
+Run 3: trying to confuse it
+
+13:23:46 nobody
+13:23:54 1 person(s) at left/far
+13:24:00 nobody
+13:24:00 1 person(s) at left/far
+13:24:02 nobody
+13:24:07 1 person(s) at left/close
+13:24:08 1 person(s) at center/close
+13:24:08 nobody
+13:24:09 1 person(s) at right/close
+13:24:10 1 person(s) at center/close
+13:24:10 1 person(s) at center/far
+13:24:11 1 person(s) at center/close
+13:24:11 1 person(s) at left/close
+13:24:13 1 person(s) at left/far
+
+Qwen (12.2 s): “There are 4 distinct people visible in the room throughout the 30-second period. They are all located near the edges of the room (left or right) and appear to be standing still...”
+
+Both stages failed here. When I sat down in a chair and turned my back to the camera, YOLO lost me and logged nobody even though I was still in the room. When I put a water bottle in the frame, YOLO detected it as a person. The readings also flickered, sometimes switching between nobody and a person within the same second. Qwen again counted four people and described them as standing still, which matched neither the log nor reality.
+
+I changed one thing in the interpreter, now I only count a person if YOLO’s confidence is at least 0.5, because in my third run a water bottle was logged as a person and in Part B a corner of my couch was detected at about 30%. The higher threshold might miss me in a hard pose, but a log full of people who aren’t there is worse for a device that runs unattended.
 
 ---
 
