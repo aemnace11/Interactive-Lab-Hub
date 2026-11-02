@@ -226,7 +226,35 @@ https://youtu.be/rXJuSdbfj_E
 
 \*\*\***Run the system for at least one real night. Include the log (or an excerpt) and a few sentences on what broke or surprised you.**\*\*\*
 
+<img width="570" height="296" alt="Screenshot 2026-11-01 at 9 43 38 PM" src="https://github.com/user-attachments/assets/de4a8b0c-c576-4f77-be1b-c3d0f4beb4b6" />
+
+A few things broke. The nightlight was much dimmer than I expected. In the early morning, the bowl was in so much shadow that I couldn’t see what was in it in the after photo, so the before-and-after comparison I was counting on to check the report didn’t work. The bowl was also a little out of frame. That cut off part of the zone around it, since the zone can’t extend past the edge of the picture, so if Korra came at the bowl from that side the camera might not have counted her. Next time I’d center the bowl in the frame, check the before photo on the screen before going to bed, and use a brighter light or have the after photo taken only after the room lights come on.
+
 ## Part I. 
 
+<img width="4284" height="5712" alt="IMG_7281" src="https://github.com/user-attachments/assets/151843bc-3abe-4dac-be89-e9ee80f473c4" />
+
+<img width="3024" height="4032" alt="IMG_7280" src="https://github.com/user-attachments/assets/a1aa0f68-ff26-46cf-bc0e-ebfc2c0e327d" />
+
+<img width="3024" height="4032" alt="IMG_7283" src="https://github.com/user-attachments/assets/3e03adc0-72b0-4ac0-8234-37e01a4881b0" />
+
+<img width="570" height="268" alt="Screenshot 2026-11-01 at 9 37 05 PM" src="https://github.com/user-attachments/assets/66775d9d-669c-4462-b848-a5d6e86f7ec9" />
+
+### Looks like
+
+The Pi, webcam, PiTFT and speaker sit on the table at bowl height, a little way back from the treat bowl, with a plug-in nightlight next to the table. At bedtime the bowl is full, the screen confirms it found the bowl, and then it goes dark, so the only light in the room overnight is the nightlight. In the morning the screen shows the before and after photos side by side with the verdict in color. The nightlight turned out to be dimmer than I expected. By early morning the bowl was in heavy shadow, and the bowl sat partly out of frame, so in a real version the device would need a brighter light and a more centered camera.
+
+### Works like
+
+At bedtime YOLO finds the bowl once, and the zone becomes the bowl's box padded by 50%. All night the Pi checks one frame every 10 seconds, and `interpret()` turns each frame into cat in zone, cat elsewhere or nobody. A reading only goes into `night_log.jsonl` once it holds for two checks in a row, and only changes get logged. In the morning `summary.py` counts the visits and time in the zone in code, and Qwen turns those facts into one police-report sentence that Piper reads out loud. The code is in [night_shift](night_shift/), the night log is [night_log.jsonl](night_log.jsonl), and the facts next to Qwen's sentence are in [night_report.txt](night_report.txt).
+
+The log shows where the pipeline breaks. It missed Korra when her back was turned, flickered to nobody while she sat still, and saw the couch pillow as a cat at dawn. Because of the miss, the device reported about 3 minutes at the bowl when she spent about 4 and a half. The after photo was too dark to see what was left in the bowl, so the photo check I was counting on didn't work. And since the zone can't go past the edge of the picture, the part of the zone cut off by the frame wasn't being watched at all.
+
+### Acts like
+
+Before bed, I put the treats out, press the button, wait for "Bowl located," and go to sleep. The whole handoff takes about thirty seconds, and there's nothing to do overnight. In the morning I press the button again and it reads me the report while the screen shows the verdict and the before and after photos. The verdict is meant as evidence, not proof: the camera can show that Korra was at the bowl, but not that she ate, so I make the final call by looking at the photos. With this night's dark after photo I couldn't do that, which is the main thing I'd fix.
+
 \*\*\***Include a short video of the whole system: the bedtime hand-off, a log excerpt or timelapse of the night, and the morning reveal from a real overnight run.**\*\*\*
+
+https://youtu.be/s7Vm85Wlngg 
 
