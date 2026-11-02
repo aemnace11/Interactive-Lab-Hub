@@ -191,13 +191,34 @@ I changed one thing in the interpreter, now I only count a person if YOLO’s co
 
 \*\*\***Insert ideas, sketches, Verplank diagrams and storyboards for your night-time interaction here.**\*\*\*
 
+<img width="1206" height="406" alt="old_storyboard" src="https://github.com/user-attachments/assets/b71a5f91-851f-43b6-bbb5-b16bc95eea0c" />
+
+### Idea
+
+Idea: Korra's Night Shift
+
+Korra's Night Shift is a device that watches a bowl of treats overnight while I sleep and tells me in the morning how many times my cat Korra went into it.
+
+Before bed, I set a bowl of treats on the table and put the Pi and webcam pointed at the table with a nightlight next to the table so the area stays lit. When I press the button, the Pi takes a photo, finds the bowl and marks a zone around it, and the PiTFT shows "Bowl located" so I know it's on duty. While I sleep, it checks the camera every 5 seconds and logs each time Korra enters or leaves the zone around the bowl.
+
+In the morning, the PiTFT shows the photo of the bowl from bedtime next to a photo from the morning, and Piper reads the night back to me like a police report. If she never went near the bowl, it will also say so.
+
+
 ## Prep for Part 2
 
+When I reviewed storyboard v1, I realized that watching the whole kitchen would mostly give me a long log of Korra wandering around or sleeping on the couch, when the only thing I actually cared about was whether she got into the treats. That made me narrow the Pi to a single zone around the treat bowl, so every line in the log answers that one question. Part E also showed me that Qwen will confidently report things that never happened, like counting four people when I was the only one in the room. So I added a before and after photo of the bowl, which lets me check with my own eyes that the morning report is true and not a hallucination.
+
 \*\*\***Post your revised storyboard here.**\*\*\*
+
+<img width="1206" height="449" alt="revised_storyboard" src="https://github.com/user-attachments/assets/4ba1eae1-2ba4-4d89-bd65-f58478762841" />
 
 ## Part G. 
 
 \*\*\***Describe the bedtime interaction and include a short video of someone handing the night over to the device.**\*\*\*
+
+Before bed, I fill a bowl with Korra’s treats and set it on the table in front of the Pi and webcam, with a nightlight next to it. Then I start the program and the PiTFT says “Set the bowl, press the button.” When I press the top button, the Pi takes a photo, YOLO looks for the bowl, and the Pi draws a zone around it. That photo is saved as the “before” picture I compare against in the morning.
+
+If YOLO finds the bowl, the screen says “Bowl located. Korra’s on watch.” for a few seconds and then the backlight turns off. I liked the screen going dark as the acknowledgement because it feels like the device is settling in for the night, and it doesn’t leave a bright light on in the room. If it can’t find the bowl, the screen tells me so and asks me to move the bowl or the camera and press the button again, so I know before I go to sleep instead of finding out in the morning that it was watching nothing. Here is a video of the quick bedtime interaction:
 
 ## Part H. 
 
