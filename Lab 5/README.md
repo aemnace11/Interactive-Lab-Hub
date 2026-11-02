@@ -206,7 +206,7 @@ In the morning, the PiTFT shows the photo of the bowl from bedtime next to a pho
 
 ## Prep for Part 2
 
-When I reviewed storyboard v1, I realized that watching the whole kitchen would mostly give me a long log of Korra wandering around or sleeping on the couch, when the only thing I actually cared about was whether she got into the treats. That made me narrow the Pi to a single zone around the treat bowl, so every line in the log answers that one question. Part E also showed me that Qwen will confidently report things that never happened, like counting four people when I was the only one in the room. So I added a before and after photo of the bowl, which lets me check with my own eyes that the morning report is true and not a hallucination.
+When I reviewed storyboard v1, I realized that watching the whole kitchen would mostly give me a long log of Korra wandering around or sleeping on the couch, when the only thing I actually cared about was whether she got into the treats. That made me narrow the Pi to a single zone around the treat bowl, so every line in the log answers that one question. Also, Part E also showed me that Qwen will confidently report things that never happened, like counting four people when I was the only one in the room. The user providing feedback on the first version of the device suggested a way to tell if it actually worked, so I added a before and after photo of the bowl, which lets me check with my own eyes that the morning report is true and not a hallucination.
 
 \*\*\***Post your revised storyboard here.**\*\*\*
 
