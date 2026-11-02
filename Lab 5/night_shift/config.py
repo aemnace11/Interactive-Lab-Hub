@@ -40,5 +40,4 @@ QWEN_TIMEOUT = 120
 # piper
 PIPER_VOICE = "en_US-joe-medium"
 PIPER_DATA_DIR = Path.home() / "Interactive-Lab-Hub" / "Lab 3" / "speech-scripts"
-
 AUDIO_DEVICE = "plughw:CARD=UACDemoV10,DEV=0"

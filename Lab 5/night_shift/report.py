@@ -4,6 +4,7 @@ import subprocess
 import sys
 import time
 import urllib.request
+from pathlib import Path
 
 from PIL import Image, ImageDraw
 
@@ -87,8 +88,15 @@ def speak(text):
     piper.wait()
 
 
-# morning reveal
-def morning(take_photo=True):
+# morning reveal, any log other than the real one saves its report under its own name
+def morning(take_photo=True, log_path=config.LOG_FILE):
+    log_path = Path(log_path)
+    if log_path.resolve() == config.LOG_FILE.resolve():
+        report_file, screen_file = config.REPORT_FILE, config.SCREEN_FILE
+    else:
+        report_file = log_path.with_name(log_path.stem + "_report.txt")
+        screen_file = log_path.with_name(log_path.stem + "_screen.png")
+    config.DATA_DIR.mkdir(exist_ok=True)
     screen.backlight(True)
     screen.text(["Good morning.", "Reviewing the tape..."])
     if take_photo:
@@ -97,11 +105,11 @@ def morning(take_photo=True):
             vision.snap(config.AFTER_PHOTO)
         except Exception as e:
             print("after photo failed:", e)
-    facts = summary.summarize(summary.load())
+    facts = summary.summarize(summary.load(log_path))
     line = write_report(facts)
     print(json.dumps(facts, indent=2))
-    config.REPORT_FILE.write_text(f"facts:\n{json.dumps(facts, indent=2)}\n\nqwen report:\n{line}\n")
-    screen.show(morning_screen(facts), save_to=config.SCREEN_FILE)
+    report_file.write_text(f"facts:\n{json.dumps(facts, indent=2)}\n\nqwen report:\n{line}\n")
+    screen.show(morning_screen(facts), save_to=screen_file)
     speak(line)
     return line
 
@@ -109,5 +117,9 @@ def morning(take_photo=True):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--no-camera", action="store_true")
+    p.add_argument("--log", default=str(config.LOG_FILE))
+    p.add_argument("--button", action="store_true")
     a = p.parse_args()
-    morning(take_photo=not a.no_camera)
+    if a.button:
+        screen.wait_for_button()
+    morning(take_photo=not a.no_camera, log_path=a.log)

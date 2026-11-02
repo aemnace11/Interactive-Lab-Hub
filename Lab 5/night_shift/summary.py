@@ -1,4 +1,5 @@
 import json
+import random
 from datetime import datetime
 
 import config
@@ -55,15 +56,38 @@ def summarize(entries):
     }
 
 
-# plain report used when qwen is skipped or gets the facts wrong
+# police-report lines, filled in with the facts from the log
+OPENERS = ["Overnight report.", "Incident log.", "Case file."]
+GUILTY = [
+    "The suspect approached the treat bowl {visits} {times} {when}, spending {time} at the scene.",
+    "Korra was observed at the treats {visits} {times} {when}, for {time} in total.",
+    "The suspect returned to the scene {visits} {times} {when} and stayed {time}.",
+]
+SUSPICIOUS = [
+    "The suspect was spotted at the treat bowl {visits} {times} {when}, but only for {time}. She may have been passing through.",
+    "Korra entered the treat zone {visits} {times} {when} and left after {time}. Not enough time to confirm a theft.",
+]
+QUIET = [
+    "Quiet night. The treats were not approached.",
+    "No activity at the treat bowl. The evidence is untouched.",
+]
+
+
+# fill a random police-report line with the facts
 def template(facts):
     if facts is None:
         return "No report. The night shift did not record a night."
+    opener = random.choice(OPENERS)
     if facts["visits"] == 0:
         extra = " The suspect was seen elsewhere but kept away from the treats." if facts["seen_elsewhere"] else ""
-        return "Overnight report. Quiet night. The treats were not approached." + extra
-    times = "time" if facts["visits"] == 1 else "times"
+        return f"{opener} {random.choice(QUIET)}{extra}"
     when = (f"at {facts['first_visit']}" if facts["visits"] == 1
-            else f"first at {facts['first_visit']} and last at {facts['last_visit']}")
-    return (f"Overnight report. The suspect entered the treat zone {facts['visits']} {times}, "
-            f"{when}, for {facts['time_in_zone']} in total. Verdict: {facts['verdict'].lower()}.")
+            else f"between {facts['first_visit']} and {facts['last_visit']}")
+    lines = GUILTY if facts["verdict"] == "Guilty" else SUSPICIOUS
+    body = random.choice(lines).format(
+        visits=facts["visits"],
+        times="time" if facts["visits"] == 1 else "times",
+        when=when,
+        time=facts["time_in_zone"],
+    )
+    return f"{opener} {body} Verdict: {facts['verdict'].lower()}."

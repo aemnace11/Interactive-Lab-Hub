@@ -25,7 +25,7 @@ try:
         y_offset=40,
     )
     _light = digitalio.DigitalInOut(board.D22)
-    _light.switch_to_output(value=True)
+    _light.switch_to_output(value=False)
     _button = digitalio.DigitalInOut(board.D23)
     _button.switch_to_input(pull=digitalio.Pull.UP)
     HAS_SCREEN = True

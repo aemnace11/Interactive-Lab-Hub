@@ -1,0 +1,14 @@
+facts:
+{
+  "night_start": "11:06 p.m.",
+  "night_end": "7:12 a.m.",
+  "visits": 2,
+  "first_visit": "1:52 a.m.",
+  "last_visit": "3:38 a.m.",
+  "time_in_zone": "about 3 minutes",
+  "seen_elsewhere": true,
+  "verdict": "Guilty"
+}
+
+qwen report:
+Police Officer Smith has formally investigated the behavior of Cat Korra at her home since visiting the bowl of treats at approximately one minute and thirty-two am, which resulted in a guilty verdict.
