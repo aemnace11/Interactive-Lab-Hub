@@ -220,6 +220,8 @@ Before bed, I fill a bowl with Korra’s treats and set it on the table in front
 
 If YOLO finds the bowl, the screen says “Bowl located. Korra’s on watch.” for a few seconds and then the backlight turns off. I liked the screen going dark as the acknowledgement because it feels like the device is settling in for the night, and it doesn’t leave a bright light on in the room. If it can’t find the bowl, the screen tells me so and asks me to move the bowl or the camera and press the button again, so I know before I go to sleep instead of finding out in the morning that it was watching nothing. Here is a video of the quick bedtime interaction:
 
+https://youtu.be/rXJuSdbfj_E
+
 ## Part H. 
 
 \*\*\***Run the system for at least one real night. Include the log (or an excerpt) and a few sentences on what broke or surprised you.**\*\*\*
